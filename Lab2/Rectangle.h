@@ -12,9 +12,12 @@
 
 class Rectangle : public Shape {
 public:
-    std::string &getColor() const;
-    float &getArea() const;
-private:
+    Rectangle(double width, double height, std::string color);
+    std::string getColor();
+    double getArea();
+protected:
+    double width;
+    double height;
 };
 
 

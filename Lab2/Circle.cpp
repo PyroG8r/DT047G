@@ -6,10 +6,15 @@
 
 #include "Circle.h"
 
-std::string &Circle::getColor() const {
+Circle::Circle(double radius, std::string color) : radius(radius), Shape(color){
+
+}
+
+std::string Circle::getColor() {
     return Shape::getColor();
 }
 
-float &Circle::getArea() const {
-    return Shape::getArea();
+double Circle::getArea() {
+    return M_PI * radius * radius;
 }
+

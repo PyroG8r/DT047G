@@ -6,10 +6,17 @@
 
 #include "Rectangle.h"
 
-std::string &Rectangle::getColor() const {
+Rectangle::Rectangle(double width, double height, std::string color)
+: width(width), height(height), Shape(color){
+
+}
+
+std::string Rectangle::getColor()  {
     return Shape::getColor();
 }
 
-float &Rectangle::getArea() const {
-    return Shape::getArea();
+double Rectangle::getArea()  {
+    return width * height;
 }
+
+

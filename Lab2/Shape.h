@@ -12,13 +12,12 @@
 
 class Shape {
 public:
-    Shape() = delete;
-    virtual std::string &getColor() const;
-    virtual float &getArea() const;
+    explicit Shape(std::string color);
+    virtual std::string getColor();
+    virtual double getArea() = 0;
+
 private:
     std::string color;
-    float width;
-    float height;
 };
 
 

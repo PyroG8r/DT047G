@@ -6,11 +6,14 @@
 
 #include "Shape.h"
 
+#include <utility>
 
-std::string &Shape::getColor() const {
-    return ;
+
+Shape::Shape(std::string color) : color(std::move(color)) {
+
+}
+std::string Shape::getColor()  {
+    return color;
 }
 
-float &Shape::getArea() const {
-    return <#initializer#>;
-}
+

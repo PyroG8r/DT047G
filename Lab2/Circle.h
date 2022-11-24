@@ -9,12 +9,16 @@
 
 
 #include "Shape.h"
+#include "math.h"
 
 class Circle : Shape {
 public:
-    std::string &getColor() const;
-    float &getArea() const;
+    Circle(double radius, std::string color);
+    std::string getColor();
+    double getArea();
 private:
+
+    double radius;
 };
 
 
