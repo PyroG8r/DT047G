@@ -1,5 +1,4 @@
 #include <iostream>
-#include <time.h>
 #include <ctime>
 #include <chrono>
 #include "int_buffer.h"
@@ -75,6 +74,10 @@ int main() {
     return 0;
 }
 
+/**
+ * Fills the buffer with incrementing numbers and prints it
+ * @param buf
+ */
 void f(int_buffer buf){
     for(int* i = buf.begin(), j = 1; i != buf.end(); i++, j++){
         *i = j;
@@ -84,6 +87,10 @@ void f(int_buffer buf){
     }
 }
 
+/**
+ * Fills the buffer with incrementing numbers and prints it with a for range loop
+ * @param buf
+ */
 void fAutoRangeLoop(int_buffer buf){
     int increment = 1;
     for(auto& e: buf){
@@ -96,7 +103,12 @@ void fAutoRangeLoop(int_buffer buf){
     }
 }
 
-
+/**
+ * Sort a list using merge sort
+ * @param begin of the list
+ * @param end of the lsit
+ * @return a sorted list
+ */
 int_sorted sort(const int* begin, const int* end) {
     if (begin == end) return int_sorted(nullptr, 0);
     if (begin == end -1) return int_sorted(begin, 1);
@@ -106,7 +118,11 @@ int_sorted sort(const int* begin, const int* end) {
     return sort(begin, mid).merge(sort(mid, end));
 }
 
-
+/**
+ * Sort a list using selection sort
+ * @param begin
+ * @param end
+ */
 void selection_sort(int* begin, int* end) {
     int_sorted sorted(begin, end - begin);
     int* jMin;
@@ -122,8 +138,10 @@ void selection_sort(int* begin, int* end) {
     }
 }
 
-
+/**
+ * Asking for user interaction to continue
+ */
 void resume() {
-    std::cout << "Press [ENTER] to continue...";
+    std::cout << "Press [ENTER] to resume";
     std::cin.get();
 }
