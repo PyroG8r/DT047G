@@ -1,7 +1,7 @@
-// "namn på uppgiften", DT047G
+// "Shape inheritance", DT047G
 // Emil Jons 
-// filnamn, 2022-11-23
-// "kortfattat vad filen innehåller"
+// Rectangle.cpp, 2022-11-23
+// "Implementationer för rectangle"
 
 
 #include "Rectangle.h"
@@ -11,11 +11,9 @@ Rectangle::Rectangle(double width, double height, std::string color)
 
 }
 
-std::string Rectangle::getColor()  {
-    return Shape::getColor();
-}
 
-double Rectangle::getArea()  {
+
+double Rectangle::getArea() const {
     return width * height;
 }
 

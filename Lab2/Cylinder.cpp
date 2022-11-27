@@ -1,17 +1,14 @@
-// "namn på uppgiften", DT047G
+// "Shape inheritance", DT047G
 // Emil Jons 
-// filnamn, 2022-11-24
-// "kortfattat vad filen innehåller"
+// Cylinder.cpp, 2022-11-24
+// "Implementation för cylinder klassen"
 
 
 #include "Cylinder.h"
 
 Cylinder::Cylinder(double radius, double height, std::string color): Circle(radius, color), height(height){}
 
-double Cylinder::getArea() {
+double Cylinder::getArea() const {
     return Circle::getArea() * height;
 }
 
-std::string Cylinder::getColor() {
-    return Circle::getColor();
-}

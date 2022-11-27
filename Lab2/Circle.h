@@ -1,7 +1,7 @@
-// "namn på uppgiften", DT047G
+// "Shape inheritance", DT047G
 // Emil Jons 
-// filnamn, 2022-11-23
-// "kortfattat vad filen innehåller"
+// Circle.h, 2022-11-23
+// "Deklaraioner för circle klassen"
 
 
 #ifndef LAB2_CIRCLE_H
@@ -9,15 +9,13 @@
 
 
 #include "Shape.h"
-#include "math.h"
+#include <cmath>
 
-class Circle : Shape {
+class Circle : public Shape {
 public:
     Circle(double radius, std::string color);
-    std::string getColor();
-    double getArea();
+    double getArea() const override;
 private:
-
     double radius;
 };
 

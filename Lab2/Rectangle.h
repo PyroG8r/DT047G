@@ -1,7 +1,7 @@
-// "namn på uppgiften", DT047G
+// "Shape inheritance", DT047G
 // Emil Jons 
-// filnamn, 2022-11-23
-// "kortfattat vad filen innehåller"
+// Rectangle.h, 2022-11-23
+// "Deklarationer för rectangle klassen"
 
 
 #ifndef LAB2_RECTANGLE_H
@@ -13,8 +13,7 @@
 class Rectangle : public Shape {
 public:
     Rectangle(double width, double height, std::string color);
-    std::string getColor();
-    double getArea();
+    double getArea() const override;
 protected:
     double width;
     double height;

@@ -1,7 +1,7 @@
-// "namn på uppgiften", DT047G
+// "Shape inheritance", DT047G
 // Emil Jons 
-// filnamn, 2022-11-23
-// "kortfattat vad filen innehåller"
+// Circle.cpp, 2022-11-23
+// "Implementation för Circle klassen"
 
 
 #include "Circle.h"
@@ -10,11 +10,7 @@ Circle::Circle(double radius, std::string color) : radius(radius), Shape(color){
 
 }
 
-std::string Circle::getColor() {
-    return Shape::getColor();
-}
-
-double Circle::getArea() {
+double Circle::getArea() const {
     return M_PI * radius * radius;
 }
 

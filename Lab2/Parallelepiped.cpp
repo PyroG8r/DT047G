@@ -9,11 +9,7 @@
 Parallelepiped::Parallelepiped(double width, double height, double depth, std::string color)
 : Rectangle(width, height, color), depth(depth) {}
 
-std::string Parallelepiped::getColor() {
-    return Rectangle::getColor();
-}
-
-double Parallelepiped::getArea() {
+double Parallelepiped::getArea() const {
     return Rectangle::getArea() * depth;
 }
 
