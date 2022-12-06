@@ -10,6 +10,6 @@ Parallelepiped::Parallelepiped(double width, double height, double depth, std::s
 : Rectangle(width, height, color), depth(depth) {}
 
 double Parallelepiped::getArea() const {
-    return Rectangle::getArea() * depth;
+    return 2 * width * height + 2 * depth * height + 2 * width * depth;
 }
 

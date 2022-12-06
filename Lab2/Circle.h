@@ -15,7 +15,7 @@ class Circle : public Shape {
 public:
     Circle(double radius, std::string color);
     double getArea() const override;
-private:
+protected:
     double radius;
 };
 
