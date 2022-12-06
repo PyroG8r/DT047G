@@ -1,76 +1,49 @@
-#include "p_queue.h"
-
-int main() {
-// define priority queues for buyorders and sellorders
-    p_queue<std::pair<std::string, int>> buyorders;
-    p_queue<std::pair<std::string, int>> sellorders;
-
-// add elements to buyorders and sellorders priority queues
-    buyorders.push({"John", 20});
-    buyorders.push({"Bob", 15});
-    buyorders.push({"Sue", 25});
-    sellorders.push({"John", 25});
-    sellorders.push({"Bob", 30});
-    sellorders.push({"Sue", 15});
-
-// print the size and elements of buyorders and sellorders
-    std::cout << "Buy orders:" << std::endl;
-    std::cout << "Size: " << buyorders.size() << std::endl;
-    while (!buyorders.empty()) {
-        p_queue<std::pair<std::string, int>> p;
-        p = buyorders.pop();
-        std::cout << p.first << " " << p.second << std::endl;
-
-    }
-    std::cout << "Sell orders:" << std::endl;
-    std::cout << "Size: " << sellorders.size() << std::endl;
-    while (!sellorders.empty()) {
-        std::cout << sellorders.front().first << " " << sellorders.front().second << std::endl;
-        sellorders.pop();
-    }
-
-    return 0;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*#include <iostream>
+#include <iostream>
+#include <utility>
 #include <vector>
 #include <algorithm>
 #include "iterator"
-#include "sorted.h"
+#include "p_queue.h"
+
+struct Order{
+    Order(std::string  broker, int price)
+    : price(price), name(std::move(broker))
+    {}
+
+    std::string name;
+    int price;
+};
+
+struct less{
+    bool operator()(Order a, Order b){
+        return a.price < b.price;
+    }
+};
 
 int my_rand(){
-    return std::rand() % 500;
+    return (std::rand() % 15) + 15;
 }
 
 int main() {
-    std::vector<int> v(100);
-    std::generate(v.begin(), v.end(), my_rand);
+    srand(time(0));
 
-    sorted<int> s_v(&(*v.begin()), &(*v.end()));
+    p_queue<Order, less> buyorders;
+    p_queue<Order, less> sellorders;
 
-    for(auto e: s_v){
-        std::cout << e << ", ";
+
+
+    Order kalle("kalle", 15);
+    buyorders.push(kalle);
+
+    less(kalle, kalle);
+
+
+    auto tmp = buyorders.pop();
+    std::cout << tmp.name << " : " << tmp.price << "\n";
+
+    for(int i = 0; i < 3; i++){
+        std::string name;
+        if (i == 0)
     }
-    std::cout << "\n";
-    s_v.insert(42);
 
-    for(auto e: s_v){
-        std::cout << e << ", ";
-    }
-
-}*/
+}
