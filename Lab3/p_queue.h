@@ -21,10 +21,9 @@ public:
         return popped;
     }
 
-
-    void push(T e) {
-        auto pos = std::find_if(pq.begin(), pq.end(), less(e));
-        pq.insert(pos, e);
+    void push(T orderInstance) {
+        auto pos = std::find_if(pq.begin(), pq.end(), less(orderInstance));
+        pq.insert(pos, orderInstance);
     }
     int size() {
         return pq.size();
@@ -35,16 +34,13 @@ public:
 private:
     std::vector<T> pq;
 
-    struct less
-    {
+    struct less{
         less(const T& value): value(value) {}
 
-        bool operator()(const T& e) const
-        {
+        bool operator()(const T& e) const{
             Comp comp;
             return comp(value, e);
         }
-
         T value;
     };
 };
