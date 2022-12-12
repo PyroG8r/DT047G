@@ -19,17 +19,9 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Email &email);
 
     // three friend function-like classes (structures): CompWhoDateSubject, CompDateWhoSubject, CompSubjectWheDate
-    struct CompWhoDateSubject {
-        bool operator()(const Email &lhs, const Email &rhs) const;
-    };
-
-    struct CompDateWhoSubject {
-        bool operator()(const Email &lhs, const Email &rhs) const;
-    };
-
-    struct CompSubjectWheDate {
-        bool operator()(const Email &lhs, const Email &rhs) const;
-    };
+    friend struct CompWhoDateSubject;
+    friend struct CompDateWhoSubject;
+    friend struct CompSubjectWheDate;
     
 
 private:
@@ -39,7 +31,17 @@ private:
 };
 
 
+struct CompWhoDateSubject {
+    bool operator()(const Email &lhs, const Email &rhs) const;
+};
 
+struct CompDateWhoSubject {
+    bool operator()(const Email &lhs, const Email &rhs) const;
+};
+
+struct CompSubjectWheDate {
+    bool operator()(const Email &lhs, const Email &rhs) const;
+};
 
 
 #endif //LAB4_EMAIL_H

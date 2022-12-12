@@ -23,14 +23,14 @@ std::vector<Email> &MailBox::GetEmails() {
 
 
 void MailBox::SortWho() {
-    std::sort(emails.begin(), emails.end(), Email::CompWhoDateSubject());
+    std::sort(emails.begin(), emails.end(), CompWhoDateSubject());
 }
 
 void MailBox::SortDate() {
-    std::sort(emails.begin(), emails.end(), Email::CompDateWhoSubject());
+    std::sort(emails.begin(), emails.end(), CompDateWhoSubject());
 }
 
 void MailBox::SortSubject() {
-    std::sort(emails.begin(), emails.end(), Email::CompSubjectWheDate());
+    std::sort(emails.begin(), emails.end(), CompSubjectWheDate());
 }
 

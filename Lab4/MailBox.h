@@ -15,6 +15,8 @@
 class MailBox : public Email {
 public:
     //constructor
+    MailBox() = default;
+
     MailBox(int numElements);                   // Alternative: MailBox(int numElements, const Email& email = Email()) : emails(numElements, email) {}
 
     //function to add an email to the mailbox

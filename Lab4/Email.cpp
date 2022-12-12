@@ -13,7 +13,7 @@ std::ostream &operator<<(std::ostream &os, const Email &email) {
 }
 
 
-bool Email::CompWhoDateSubject::operator()(const Email &lhs, const Email &rhs) const {
+bool CompWhoDateSubject::operator()(const Email &lhs, const Email &rhs) const {
     if (lhs.who < rhs.who) {
         return true;
     } else if (lhs.who == rhs.who) {
@@ -26,7 +26,7 @@ bool Email::CompWhoDateSubject::operator()(const Email &lhs, const Email &rhs) c
     return false;
 }
 
-bool Email::CompDateWhoSubject::operator()(const Email &lhs, const Email &rhs) const {
+bool CompDateWhoSubject::operator()(const Email &lhs, const Email &rhs) const {
     if (lhs.date < rhs.date) {
         return true;
     } else if (lhs.date == rhs.date) {
@@ -39,7 +39,7 @@ bool Email::CompDateWhoSubject::operator()(const Email &lhs, const Email &rhs) c
     return false;
 }
 
-bool Email::CompSubjectWheDate::operator()(const Email &lhs, const Email &rhs) const {
+bool CompSubjectWheDate::operator()(const Email &lhs, const Email &rhs) const {
     if (lhs.subject < rhs.subject) {
         return true;
     } else if (lhs.subject == rhs.subject) {
