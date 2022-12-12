@@ -23,6 +23,7 @@ public:
     // Access function that allows for reading and writing to the vector
     std::vector<Email> &GetEmails();
 
+    // Sort the emails in the mailbox based on sender, date, and subject
     void SortWho();
     void SortDate();
     void SortSubject();
