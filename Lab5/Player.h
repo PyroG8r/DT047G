@@ -12,11 +12,12 @@ class Player {
 public:
     Player();
     Player(std::string basicString, double speed, double score);
+
 private:
-    std::string name;
     double speed;
     double score;
 
+    std::string name;
 };
 
 

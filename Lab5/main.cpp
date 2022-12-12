@@ -17,7 +17,11 @@ int main() {
         if (i == 4) name = "Jimmy";
         players[i] = Player(name, rand() % 100, rand() % 100);
     }
-    
+    // Create a vector of objects of the designed class by applying the parameterized constructor and copying the array's contents into the vector
+    std::vector<Player> playerVector;
+    for(int i = 0; i < 5; i++) {
+        playerVector.push_back(players[i]);
+    }
     
 
     return 0;
