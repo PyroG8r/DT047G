@@ -13,6 +13,7 @@ struct Order{
     int price;
 };
 
+
 struct less{
     bool operator()(Order a, Order b){
         return a.price < b.price;
@@ -47,7 +48,7 @@ int main() {
         auto currentBuyOrder = buyorders.pop();
         auto currentSellOrder = sellorders.pop();
 
-        if(currentSellOrder.price <= currentBuyOrder.price && currentBuyOrder.name != currentSellOrder.name){
+        if(currentSellOrder.price <= currentBuyOrder.price ){
             std::cout << currentBuyOrder.name << " bought from " << currentSellOrder.name << "\n";
             std::cout << "Buy price: " << currentBuyOrder.price << ", sell price: " << currentSellOrder.price << "\n\n";
         }

@@ -10,12 +10,12 @@
 
 class MyPrint {
 public:
-    
+    MyPrint() = default;
     //function call operator overloaded to print your class data members: name and parameters
-    void operator()(Player player) {
-        std::cout << "Name: " << player.name << std::endl;
-        std::cout << "Speed: " << player.speed << std::endl;
-        std::cout << "Score: " << player.score << std::endl;
+    void operator()(Player& player) const {
+        std::cout << "Name: " << player.getName() << "\n";
+        std::cout << "Speed: " << player.getSpeed() << "\n";
+        std::cout << "Score: " << player.getScore() << "\n\n";
     }
 
 };

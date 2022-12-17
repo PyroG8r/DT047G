@@ -4,10 +4,14 @@
 
 #include "Player.h"
 
-Player::Player(std::string basicString, double speed, double score) {
+Player::Player(std::string name, double speed, double score) : name(name), speed(speed), score(score){
 
 }
 
 Player::Player() {
 
+}
+
+bool Player::operator==(const Player &player) const {
+    return name == player.name;
 }

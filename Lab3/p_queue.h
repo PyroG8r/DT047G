@@ -9,28 +9,32 @@
 #include <iostream>
 #include <vector>
 
-/*
-template <typename T>
-bool less(const T &a, const T &b)  {
-    return a < b;
-}
-*/
 
 template <typename T, typename Comp = std::less<>>
 class p_queue {
 public:
     p_queue() = default;
 
+    /**
+     * @brief pop the first element in the vector
+     * @return the first element in the vector
+     */
     T pop() {
         auto popped = pq.front();
         pq.erase(pq.begin());
         return popped;
     }
 
+    /**
+     * @brief push
+     * @param orderInstance
+     * @details
+     * 1. Find the first element in the vector that is greater than the orderInstance
+     * 2. Insert the orderInstance before that element
+     */
     void push(T orderInstance) {
 
-        //using comp function, insert orderInstance in the first position where it is less than the element at that position
-        auto it = std::find_if(pq.begin(), pq.end(), [&](const T &element) { return comp(orderInstance, element); });
+        auto it = std::lower_bound(pq.begin(), pq.end(), orderInstance, comp);    
         pq.insert(it, orderInstance);
 
     }

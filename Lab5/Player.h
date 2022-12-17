@@ -12,7 +12,13 @@ class Player {
 public:
     Player();
     Player(std::string basicString, double speed, double score);
+    std::string getName() const { return name; }
 
+    //overloaded == operator for comparing name
+    bool operator==(const Player &player) const;
+
+    double getSpeed() const { return speed; }
+    double getScore() const { return score; }
 private:
     double speed;
     double score;

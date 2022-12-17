@@ -19,7 +19,7 @@ int_sorted::int_sorted(const int *source, size_t size)
     : buff(source, size)
 {
     if(size <= 1)  return;
-    sort(begin(),end());
+    *this = sort(begin(),end());
 }
 
 size_t int_sorted::size() const {
