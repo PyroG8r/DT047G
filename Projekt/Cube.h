@@ -16,6 +16,7 @@ public:
     void setPos(sf::Vector2f);
 
 
+
     void increaseRight();
     void increaseLeft();
 

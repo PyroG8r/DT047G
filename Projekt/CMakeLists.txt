@@ -3,7 +3,7 @@ project(Projekt)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Projekt main.cpp Cube.cpp Cube.h MovingCube.cpp MovingCube.h)
+add_executable(Projekt main.cpp Cube.cpp Cube.h MovingCube.cpp MovingCube.h CubeTower.cpp CubeTower.h)
 
 set(SFML_STATIC_LIBRARIES TRUE)
 set(SFML_DIR C:/SFML/lib/cmake/SFML)
