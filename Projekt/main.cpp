@@ -1,45 +1,72 @@
-#include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Cube.h"
 
 
 int main()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(600, 600), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(500, 500), "Stacker");
 
-    sf::ConvexShape convex;
-    convex.setPointCount(6);
+    int x = 100;
+    int y = 100;
+    Cube cube(0, 0,x ,y);
+    int counter = 0;
 
-    sf::Vector2i mouse = sf::Mouse::getPosition(window);
-
-    convex.setPoint(0, sf::Vector2f(mouse.x + 50.f, mouse.y + 0.f));
-    convex.setPoint(1, sf::Vector2f(mouse.x + 100.f, mouse.y + 25.f));
-    convex.setPoint(2, sf::Vector2f(mouse.x + 100.f, mouse.y + 75.f));
-    convex.setPoint(3, sf::Vector2f(mouse.x + 50.f, mouse.y + 100.f));
-    convex.setPoint(4, sf::Vector2f(mouse.x + 0.f, mouse.y + 75.f));
-    convex.setPoint(5, sf::Vector2f(mouse.x + 0.f, mouse.y + 25.f));
-
+    sf::Vector2i mouse;
 
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed){
                 window.close();
+            }
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code == sf::Keyboard::Space)
+                {
+                    cube.toggleDir();
+                }
+            }
+
         }
 
-        mouse = sf::Mouse::getPosition(window);
 
-        convex.setPoint(0, sf::Vector2f(mouse.x + 50.f, mouse.y + 0.f));
-        convex.setPoint(1, sf::Vector2f(mouse.x + 100.f, mouse.y + 25.f));
-        convex.setPoint(2, sf::Vector2f(mouse.x + 100.f, mouse.y + 75.f));
-        convex.setPoint(3, sf::Vector2f(mouse.x + 50.f, mouse.y + 100.f));
-        convex.setPoint(4, sf::Vector2f(mouse.x + 0.f, mouse.y + 75.f));
-        convex.setPoint(5, sf::Vector2f(mouse.x + 0.f, mouse.y + 25.f));
+        /*counter++;
+        if (!(counter % 2) ) {
+            cube.move();
+            counter = 0;
+        }
+*/
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
+            mouse = sf::Mouse::getPosition(window);
+            cube.setPosY(mouse.y);
+            cube.setPosX(mouse.x);
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+            cube.increaseLeft();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+            cube.decreaseLeft();
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+            cube.increaseRight();
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+            cube.decreaseRight();
+        }
+
+        /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+            cube.toggleDir();
+        }*/
+
 
         window.clear();
-        window.draw(convex);
+        window.draw(cube.getCube());
         window.display();
     }
 
