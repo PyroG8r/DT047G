@@ -10,15 +10,11 @@
 
 class Cube {
 public:
-    explicit Cube(double sizeX, double sizeY, float posX, float posY);
+    explicit Cube(double sizeX, double sizeY);
     sf::ConvexShape getCube();
-    void setPosX(float posX);
-    void setPosY(float posY);
 
-    void setPoints();
-    void move();
+    void setPos(sf::Vector2f);
 
-    void toggleDir();
 
     void increaseRight();
     void increaseLeft();
@@ -27,16 +23,11 @@ public:
     void decreaseLeft();
 
 private:
-    enum Direction {LEFT, RIGHT};
+    void setPoints();
+
     sf::ConvexShape cube;
     double sizeX;
     double sizeY;
-    float posX;
-    float posY;
-
-    bool direction;
-    float offset = 10;
-
 
     sf::Vector2f point1;
     sf::Vector2f point2;

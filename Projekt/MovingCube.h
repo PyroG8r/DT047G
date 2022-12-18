@@ -8,8 +8,17 @@
 
 #include "Cube.h"
 
-class MovingCube : public Cube{
+class MovingCube : public Cube {
+public:
+    MovingCube(float posX, float posY, double sizeX, double sizeY);
 
+    void toggleDir();
+
+    void move();
+private:
+    enum Direction {LEFT, RIGHT};
+    bool direction;
+    float offset = 10;
 };
 
 

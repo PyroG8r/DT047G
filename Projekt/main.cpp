@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Cube.h"
+#include "MovingCube.h"
+#include "CubeTower.h"
 
 
 int main()
@@ -10,7 +12,8 @@ int main()
 
     int x = 100;
     int y = 100;
-    Cube cube(0, 0,x ,y);
+    MovingCube cube(x, y, 1, 1);
+    CubeTower cube1;
     int counter = 0;
 
     sf::Vector2i mouse;
@@ -27,7 +30,7 @@ int main()
             {
                 if (event.key.code == sf::Keyboard::Space)
                 {
-                    cube.toggleDir();
+                    //cube.toggleDir();
                 }
             }
 
@@ -42,8 +45,7 @@ int main()
 */
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
             mouse = sf::Mouse::getPosition(window);
-            cube.setPosY(mouse.y);
-            cube.setPosX(mouse.x);
+            cube.setPos(sf::Vector2f(mouse.x, mouse.y));
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
@@ -67,6 +69,7 @@ int main()
 
         window.clear();
         window.draw(cube.getCube());
+        window.draw(cube1.getCube());
         window.display();
     }
 
