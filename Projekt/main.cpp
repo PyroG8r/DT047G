@@ -9,11 +9,16 @@ int main()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(500, 500), "Stacker");
+    //set the framerate limit to 60 frames per second
+    window.setFramerateLimit(60);
+    
 
     int x = 100;
     int y = 100;
-    MovingCube cube(x, y, 1, 1);
-    CubeTower cube1;
+    MovingCube movingCube(x, y, 1, 1);
+
+    CubeTower tower;
+    tower.addCube(10,10);
     int counter = 0;
 
     sf::Vector2i mouse;
@@ -30,48 +35,55 @@ int main()
             {
                 if (event.key.code == sf::Keyboard::Space)
                 {
-                    //cube.toggleDir();
+                    movingCube.toggleDir();
                 }
             }
 
         }
 
 
-        /*counter++;
+        counter++;
         if (!(counter % 2) ) {
-            cube.move();
+            movingCube.move();
             counter = 0;
         }
-*/
+
+
+
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
             mouse = sf::Mouse::getPosition(window);
-            cube.setPos(sf::Vector2f(mouse.x, mouse.y));
+            movingCube.setPos(sf::Vector2f(mouse.x, mouse.y));
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-            cube.increaseLeft();
+            movingCube.increaseLeft();
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-            cube.decreaseLeft();
+            movingCube.decreaseLeft();
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-            cube.increaseRight();
+            movingCube.increaseRight();
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-            cube.decreaseRight();
+            movingCube.decreaseRight();
         }
 
-        /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-            cube.toggleDir();
-        }*/
+/*
+        std::cout << movingCube.getSizeX() << "\n";
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+            movingCube.toggleDir();
+        }
+*/
 
+        window.clear(sf::Color(200, 200, 200));
+        // print all cubes in tower using std::for_each
+        std::for_each(tower.bottom(), tower.top(), [&window](Cube &cube){window.draw(cube.getShape());});
+        window.draw(movingCube.getShape());
 
-        window.clear();
-        window.draw(cube.getCube());
-        window.draw(cube1.getCube());
         window.display();
     }
 
     return 0;
 }
+

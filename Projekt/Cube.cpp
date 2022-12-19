@@ -8,19 +8,28 @@
 
 Cube::Cube(double sizeX, double sizeY) : sizeX(sizeX), sizeY(sizeY){
     cube.setPointCount(6);
-    cube.setFillColor(sf::Color(35, 166, 135));
-    cube.setPosition(200,200);
+    cube.setFillColor(sf::Color(157, 158, 157));
+    cube.setOutlineColor(sf::Color(112, 112, 112));
+
+    //set the thickness of the outline
+    cube.setOutlineThickness(3);
+
+    
     cube.setOrigin(50,50);
     setPoints();
 }
 
-sf::ConvexShape Cube::getCube() {
+sf::ConvexShape Cube::getShape() {
     return cube;
 }
 
 
+sf::Vector2f Cube::getPos() {
+    return cube.getPosition();
+}
 void Cube::setPos(sf::Vector2f pos) {
     cube.setPosition(pos);
+
 }
 
 void Cube::setPoints() {
@@ -37,6 +46,9 @@ void Cube::setPoints() {
     cube.setPoint(3, point4);
     cube.setPoint(4, point5);
     cube.setPoint(5, point6);
+
+
+    
 }
 
 
@@ -44,24 +56,41 @@ void Cube::setPoints() {
 
 
 void Cube::increaseRight() {
-    sizeX = sizeX + 0.1;
+    sizeX = sizeX + 1;
     setPoints();
 }
 
 void Cube::increaseLeft() {
-    sizeY = sizeY + 0.1;
+    sizeY = sizeY + 1;
     setPoints();
 }
 
 void Cube::decreaseRight() {
-    (sizeX < -50) ? : sizeX = sizeX - 0.1;
+    (sizeX < -50) ? : sizeX = sizeX - 1;
     setPoints();
 }
 
 void Cube::decreaseLeft() {
-    (sizeY < -50) ? : sizeY = sizeY - 0.1;
+    (sizeY < -50) ? : sizeY = sizeY - 1;
     setPoints();
 }
+
+void Cube::setSize(sf::Vector2f size){
+    sizeX = size.x;
+    sizeY = size.y;
+}
+
+double Cube::getSizeX() {
+    return sizeX;
+}
+
+double Cube::getSizeY() {
+    return sizeY;
+}
+
+
+
+
 
 
 

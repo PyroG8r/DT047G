@@ -16,9 +16,8 @@ public:
 
     void move();
 private:
-    enum Direction {LEFT, RIGHT};
     bool direction;
-    float offset = 10;
+    float speed = 1;
 };
 
 

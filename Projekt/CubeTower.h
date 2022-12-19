@@ -5,14 +5,23 @@
 #ifndef PROJEKT_CUBETOWER_H
 #define PROJEKT_CUBETOWER_H
 
+#include "FixedCube.h"
 
-#include "Cube.h"
-
-class CubeTower : public Cube {
+class CubeTower {
 public:
     CubeTower();
+    void addCube(double sizeX, double sizeY);
+
+
+    FixedCube& operator[](std::size_t i);
+    const FixedCube& operator[](std::size_t i) const;
+
+    std::vector<FixedCube>::reverse_iterator top();
+    std::vector<FixedCube>::reverse_iterator bottom();
+
+
 private:
-    std::vector<Cube> cubeTower;
+    std::vector<FixedCube> cubeTower;
 };
 
 

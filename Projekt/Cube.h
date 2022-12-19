@@ -11,17 +11,24 @@
 class Cube {
 public:
     explicit Cube(double sizeX, double sizeY);
-    sf::ConvexShape getCube();
+    
+    sf::ConvexShape getShape();
 
     void setPos(sf::Vector2f);
+    sf::Vector2f getPos();
 
 
+    void setSize(sf::Vector2f);
 
     void increaseRight();
     void increaseLeft();
 
     void decreaseRight();
     void decreaseLeft();
+
+
+    double getSizeX();
+    double getSizeY();
 
 private:
     void setPoints();

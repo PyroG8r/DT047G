@@ -4,7 +4,27 @@
 
 #include "CubeTower.h"
 
-CubeTower::CubeTower() : Cube(1,1) {
+CubeTower::CubeTower() {
 
-    cubeTower.push_back()
+    addCube(0,0);
+}
+
+void CubeTower::addCube(double sizeX, double sizeY) {
+    cubeTower.emplace_back(250, 400 + cubeTower.size() * 50,  sizeX, sizeY);
+}
+
+FixedCube &CubeTower::operator[](std::size_t i) {
+    return cubeTower[i];
+}
+
+const FixedCube &CubeTower::operator[](std::size_t i) const {
+    return cubeTower[i];
+}
+
+std::vector<FixedCube>::reverse_iterator CubeTower::top() {
+    return cubeTower.rend();
+}
+
+std::vector<FixedCube>::reverse_iterator CubeTower::bottom() {
+    return cubeTower.rbegin();
 }
