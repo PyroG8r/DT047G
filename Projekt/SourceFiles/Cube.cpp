@@ -50,9 +50,6 @@ void Cube::setPoints() {
 }
 
 
-
-
-
 void Cube::increaseRight() {
     sizeX = sizeX + 1;
     setPoints();

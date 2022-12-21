@@ -12,12 +12,18 @@ class MovingCube : public Cube {
 public:
     MovingCube(double sizeX, double sizeY);
 
-    void toggleDir();
     void placeCube();
 
     void move();
 private:
-    bool direction;
+    void toggleDirUpDown();
+    void toggleDirLeftRight();
+
+    enum dirUpDown {UP, DOWN};
+    enum dirLeftRight {LEFT, RIGHT};
+    int startHeight;
+    bool dirUpDown;
+    bool dirLeftRight;
     float speed = 1;
 };
 
