@@ -46,8 +46,6 @@ void Cube::setPoints() {
     cube.setPoint(3, point4);
     cube.setPoint(4, point5);
     cube.setPoint(5, point6);
-
-
     
 }
 

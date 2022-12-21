@@ -2,10 +2,11 @@
 // Created by emilj on 2022-12-18.
 //
 
+#include <iostream>
 #include "MovingCube.h"
-
-MovingCube::MovingCube(float posX, float posY, double sizeX, double sizeY) : Cube(sizeX, sizeY){
-    setPos(sf::Vector2f(posX, posY));
+                                                                                            // problem with initializing direction
+MovingCube::MovingCube(double sizeX, double sizeY) : Cube(sizeX, sizeY), direction(){
+    setPos(sf::Vector2f(550,100));
 }
 
 
@@ -21,6 +22,15 @@ void MovingCube::move() {
 
 void MovingCube::toggleDir() {
     direction = !direction;
+}
+
+void MovingCube::placeCube() {
+    toggleDir();
+    sf::Vector2f pos = getPos();
+
+    // fixa så att kuben tpaar till pos relativt till fönstret...........
+
+    (direction) ? setPos(sf::Vector2f(-50, pos.y-50)) : setPos(sf::Vector2f(550, pos.y-50));
 }
 /*
 

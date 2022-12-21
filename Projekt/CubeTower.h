@@ -16,8 +16,8 @@ public:
     FixedCube& operator[](std::size_t i);
     const FixedCube& operator[](std::size_t i) const;
 
-    std::vector<FixedCube>::reverse_iterator top();
-    std::vector<FixedCube>::reverse_iterator bottom();
+    std::vector<FixedCube>::iterator top();
+    std::vector<FixedCube>::iterator bottom();
 
 
 private:

@@ -5,12 +5,11 @@
 #include "CubeTower.h"
 
 CubeTower::CubeTower() {
-
     addCube(0,0);
 }
 
 void CubeTower::addCube(double sizeX, double sizeY) {
-    cubeTower.emplace_back(250, 400 + cubeTower.size() * 50,  sizeX, sizeY);
+    cubeTower.emplace_back(250, 400 - cubeTower.size() * 50,  sizeX, sizeY);
 }
 
 FixedCube &CubeTower::operator[](std::size_t i) {
@@ -21,10 +20,10 @@ const FixedCube &CubeTower::operator[](std::size_t i) const {
     return cubeTower[i];
 }
 
-std::vector<FixedCube>::reverse_iterator CubeTower::top() {
-    return cubeTower.rend();
+std::vector<FixedCube>::iterator CubeTower::top() {
+    return cubeTower.end();
 }
 
-std::vector<FixedCube>::reverse_iterator CubeTower::bottom() {
-    return cubeTower.rbegin();
+std::vector<FixedCube>::iterator CubeTower::bottom() {
+    return cubeTower.begin();
 }

@@ -10,9 +10,10 @@
 
 class MovingCube : public Cube {
 public:
-    MovingCube(float posX, float posY, double sizeX, double sizeY);
+    MovingCube(double sizeX, double sizeY);
 
     void toggleDir();
+    void placeCube();
 
     void move();
 private:
