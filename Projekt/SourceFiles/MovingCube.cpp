@@ -6,7 +6,7 @@
 #include "MovingCube.h"
 #include "cmath"
                                                                                             // problem with initializing dirUpDown
-MovingCube::MovingCube(double sizeX, double sizeY) : Cube(sizeX, sizeY), dirUpDown(DOWN), dirLeftRight(LEFT), startHeight(0){
+MovingCube::MovingCube(double sizeX, double sizeY) : Cube(sizeX, sizeY), dirUpDown(DOWN), dirLeftRight(LEFT), path(ALONG_X), startHeight(0){
     setPos(sf::Vector2f(550,50));
 }
 
@@ -19,15 +19,19 @@ void MovingCube::move() {
     }
     if (dirLeftRight == LEFT && dirUpDown == DOWN){
         setPos(sf::Vector2f(pos.x - 2 * speed, pos.y + 1 * speed));
+        path = ALONG_X;
     }
-     if (dirLeftRight == LEFT && dirUpDown == UP) {
+    if (dirLeftRight == LEFT && dirUpDown == UP) {
         setPos(sf::Vector2f(pos.x - 2 * speed, pos.y - 1 * speed));
+        path = ALONG_Y;
     }
-     if (dirLeftRight == RIGHT && dirUpDown == DOWN) {
+    if (dirLeftRight == RIGHT && dirUpDown == DOWN) {
         setPos(sf::Vector2f(pos.x + 2 * speed, pos.y + 1 * speed));
+        path = ALONG_Y;
     }
-     if (dirLeftRight == RIGHT && dirUpDown == UP) {
+    if (dirLeftRight == RIGHT && dirUpDown == UP) {
         setPos(sf::Vector2f(pos.x + 2 * speed, pos.y - 1 * speed));
+        path = ALONG_X;
     }
 }
 
@@ -43,28 +47,41 @@ double MovingCube::placeCube(FixedCube TopCube) {
     sf::Vector2f topCubePos = TopCube.getPos();
     sf::Vector2f thisCubePos = getPos();
 
-    sf::Vector2f towerForwardPoint = topCubePos;
-    sf::Vector2f towerBackwardPoint = topCubePos;
+    sf::Vector2f towerPoint6 = topCubePos + TopCube.point6;
+    sf::Vector2f movingPoint5 = thisCubePos + point5;
 
-    sf::Vector2f movingForwardPoint = thisCubePos;
-    sf::Vector2f movingBackwardPoint = getShape().getPoint(1);
-
-    double deltaX = movingForwardPoint.x - towerForwardPoint.x;
-    double deltaY = movingForwardPoint.y + 50 - towerForwardPoint.y;
-
-
+    double deltaX = movingPoint5.x - towerPoint6.x;
+    double deltaY = movingPoint5.y - towerPoint6.y;
 
     double overHang = sqrt(pow(deltaX, 2) + pow(deltaY,2));
 
 
 
-    std::cout << towerForwardPoint.x << " : " << towerForwardPoint.y << "\n"
-              << movingForwardPoint.x << " : " << movingForwardPoint.y << "\n"
+    std::cout << towerPoint6.x << " : " << towerPoint6.y << "\n"
+              << movingPoint5.x << " : " << movingPoint5.y << "\n"
              << deltaX << " : " << deltaY << "\n"
-             << overHang;
+             << "overhang: " << overHang << "\n";
 
 
-    resetCubePos();
+
+    if ((dirLeftRight == LEFT && dirUpDown == DOWN) || (dirLeftRight == RIGHT && dirUpDown == UP)){
+
+        if (deltaX > 0){ setPos(sf::Vector2f(-50 + deltaX, -startHeight++ * 50 + deltaY));}
+        else { setPos(sf::Vector2f(-50, -startHeight++ * 50)); }
+
+        if (dirLeftRight == LEFT) toggleDirLeftRight();
+    }
+    else {
+        if (deltaX < 0){ setPos(sf::Vector2f(550 + deltaX, -startHeight++ * 50 + deltaY));}
+        else { setPos(sf::Vector2f(550, -startHeight++ * 50)); }
+
+
+        if (dirLeftRight == RIGHT) toggleDirLeftRight();
+    }
+
+    if (dirUpDown == UP) {
+        toggleDirUpDown();
+    }
 
     return overHang;
 
@@ -76,19 +93,14 @@ double MovingCube::placeCube(FixedCube TopCube) {
 
 }
 
-void MovingCube::resetCubePos() {
-    if ((dirLeftRight == LEFT && dirUpDown == DOWN) || (dirLeftRight == RIGHT && dirUpDown == UP)){
-        setPos(sf::Vector2f(-50, -startHeight++ * 50));
-        if (dirLeftRight == LEFT) toggleDirLeftRight();
-    }
-    else {
-        setPos(sf::Vector2f(550, -startHeight++ * 50));
-        if (dirLeftRight == RIGHT) toggleDirLeftRight();
-    }
 
-    if (dirUpDown == UP) {
-        toggleDirUpDown();
-    }
+
+void MovingCube::resetCubeState(double deltaX, double deltaY) {
+
+}
+
+bool MovingCube::getMovingPath() {
+    return path;
 }
 
 
@@ -127,6 +139,23 @@ void Cube::setSize(sf::Vector2f size){
 }
 
 
+
+
+
+
+
+
+ double deltaX = 0;
+    double deltaY = 0;
+    std::cout << thisCubePos.x << " : " << topCubePos.x << "\n";
+    if (dirLeftRight == LEFT){
+        deltaX = movingPoint5.x - towerPoint6.x;
+        deltaY = movingPoint5.y - towerPoint6.y;
+    }
+    else if (dirLeftRight == RIGHT) {
+        deltaX = movingPoint5.x - towerPoint6.x;
+        deltaY = movingPoint5.y - towerPoint6.y;
+    }
 
 
 

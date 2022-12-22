@@ -72,6 +72,7 @@ void Cube::decreaseLeft() {
 void Cube::setSize(sf::Vector2f size){
     sizeX = size.x;
     sizeY = size.y;
+    setPoints();
 }
 
 double Cube::getSizeX() {

@@ -52,7 +52,6 @@ void Game::handleInputs() {
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Space) {
                 placeCube();
-
             }
         }
     }
@@ -69,7 +68,6 @@ void Game::updateObjects() {
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
         movingCube.setPos(mouseWorldPos);
-        cubeTower.addCube(rand() % 20, rand() % 20);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
@@ -103,10 +101,38 @@ void Game::placeCube() {
     window.setView(view);
 
     double overHang;
-    auto topCube = cubeTower.topCube();
-    overHang = movingCube.placeCube(cubeTower.topCube());
+    FixedCube topCube = cubeTower.topCube();
+    sf::Vector2f placedPos(movingCube.getPos());
+    sf::Vector2f newSize(movingCube.getSizeX(),movingCube.getSizeY());
 
 
-    cubeTower.addCube(topCube.getSizeX()-overHang, 0);
+    overHang = movingCube.placeCube(topCube);
+
+    //moving along x placed "under" tower
+    if (placedPos.x < topCube.getPos().x && !movingCube.getMovingPath()){
+        newSize.x = movingCube.getSizeX() - overHang;
+        placedPos = topCube.getPos();
+    }
+    //moving along x placed "above" tower
+    if (placedPos.x > topCube.getPos().x && !movingCube.getMovingPath()){
+        newSize.x = movingCube.getSizeX() - overHang;
+        placedPos.y += 50;
+    }
+    //moving along y placed "above" tower
+    if (placedPos.x < topCube.getPos().x && movingCube.getMovingPath()){
+        newSize.y = movingCube.getSizeY() - overHang;
+        placedPos.y += 100;
+    }
+    //moving along y placed "under" tower
+    if (placedPos.x > topCube.getPos().x && movingCube.getMovingPath()){
+        newSize.y = movingCube.getSizeY() - overHang;
+        placedPos = topCube.getPos();
+    }
+
+
+
+    cubeTower.addCube(newSize, placedPos);
+    movingCube.setSize(sf::Vector2f(newSize.x,newSize.y));
+
 }
 

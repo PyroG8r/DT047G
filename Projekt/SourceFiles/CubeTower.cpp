@@ -5,11 +5,11 @@
 #include "CubeTower.h"
 
 CubeTower::CubeTower() : towerHeight(0) {
-    addCube(0,0);
+    addCube(sf::Vector2f(0,0), sf::Vector2f(250,250));
 }
 
-void CubeTower::addCube(double sizeX, double sizeY) {
-    cubeTower.emplace_back(250, 250 - towerHeight++ * 50,  sizeX, sizeY);
+void CubeTower::addCube(sf::Vector2f size, sf::Vector2f pos) {
+    cubeTower.emplace_back(pos.x, pos.y - towerHeight++ * 50,  size.x, size.y);
 
 
 }
