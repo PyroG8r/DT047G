@@ -44,17 +44,14 @@ void Game::handleInputs() {
 
     //main event loop
     sf::Event event;
-    while (window.pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed){
+    while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) {
             window.close();
         }
 
-        if (event.type == sf::Event::KeyPressed){
-            if (event.key.code == sf::Keyboard::Space){
-                //move camera 1 cube height up
-                view.move(0,-50);
-                movingCube.placeCube();
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Space) {
+                placeCube();
 
             }
         }
@@ -98,5 +95,18 @@ void Game::drawObjects() {
 
     window.display();
 
+}
+
+void Game::placeCube() {
+    //move camera 1 cube height up
+    view.move(0,-50);
+    window.setView(view);
+
+    double overHang;
+    auto topCube = cubeTower.topCube();
+    overHang = movingCube.placeCube(cubeTower.topCube());
+
+
+    cubeTower.addCube(topCube.getSizeX()-overHang, 0);
 }
 

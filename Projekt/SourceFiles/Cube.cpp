@@ -19,7 +19,7 @@ Cube::Cube(double sizeX, double sizeY) : sizeX(sizeX), sizeY(sizeY){
     setPoints();
 }
 
-sf::ConvexShape Cube::getShape() {
+const sf::ConvexShape Cube::getShape() {
     return cube;
 }
 
@@ -29,7 +29,6 @@ sf::Vector2f Cube::getPos() {
 }
 void Cube::setPos(sf::Vector2f pos) {
     cube.setPosition(pos);
-
 }
 
 void Cube::setPoints() {

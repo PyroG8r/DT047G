@@ -12,7 +12,7 @@ class Cube {
 public:
     explicit Cube(double sizeX, double sizeY);
     
-    sf::ConvexShape getShape();
+    const sf::ConvexShape getShape();
 
     void setPos(sf::Vector2f);
     sf::Vector2f getPos();
@@ -30,6 +30,8 @@ public:
     double getSizeX();
     double getSizeY();
 
+    sf::Vector2f point2;
+    sf::Vector2f point6;
 private:
     void setPoints();
 
@@ -38,11 +40,9 @@ private:
     double sizeY;
 
     sf::Vector2f point1;
-    sf::Vector2f point2;
     sf::Vector2f point3;
     sf::Vector2f point4;
     sf::Vector2f point5;
-    sf::Vector2f point6;
 
 };
 

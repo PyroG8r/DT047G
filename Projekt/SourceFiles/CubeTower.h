@@ -19,9 +19,12 @@ public:
     std::vector<FixedCube>::iterator top();
     std::vector<FixedCube>::iterator bottom();
 
+    FixedCube topCube();
+
 
 private:
     std::vector<FixedCube> cubeTower;
+    int towerHeight;
 };
 
 

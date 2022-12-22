@@ -21,6 +21,7 @@ private:
     void handleInputs();
     void updateObjects();
     void drawObjects();
+    void placeCube();
 
     //game objects
     sf::ContextSettings settings;

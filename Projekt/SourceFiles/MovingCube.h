@@ -7,17 +7,19 @@
 
 
 #include "Cube.h"
+#include "FixedCube.h"
 
 class MovingCube : public Cube {
 public:
     MovingCube(double sizeX, double sizeY);
 
-    void placeCube();
+    double placeCube(FixedCube onTopOf);
 
     void move();
 private:
     void toggleDirUpDown();
     void toggleDirLeftRight();
+    void resetCubePos();
 
     enum dirUpDown {UP, DOWN};
     enum dirLeftRight {LEFT, RIGHT};

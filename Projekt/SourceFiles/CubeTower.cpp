@@ -4,12 +4,14 @@
 
 #include "CubeTower.h"
 
-CubeTower::CubeTower() {
+CubeTower::CubeTower() : towerHeight(0) {
     addCube(0,0);
 }
 
 void CubeTower::addCube(double sizeX, double sizeY) {
-    cubeTower.emplace_back(250, 400 - cubeTower.size() * 50,  sizeX, sizeY);
+    cubeTower.emplace_back(250, 250 - towerHeight++ * 50,  sizeX, sizeY);
+
+
 }
 
 FixedCube &CubeTower::operator[](std::size_t i) {
@@ -26,4 +28,8 @@ std::vector<FixedCube>::iterator CubeTower::top() {
 
 std::vector<FixedCube>::iterator CubeTower::bottom() {
     return cubeTower.begin();
+}
+
+FixedCube CubeTower::topCube() {
+    return cubeTower.back();
 }
