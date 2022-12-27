@@ -4,6 +4,6 @@
 
 #include "FixedCube.h"
 
-FixedCube::FixedCube(float posX, float posY, double sizeX, double sizeY) : Cube(sizeX, sizeY) {
+FixedCube::FixedCube(float posX, float posY, float sizeX, float sizeY) : Cube(sizeX, sizeY) {
     setPos(sf::Vector2f(posX, posY));
 }

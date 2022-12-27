@@ -1,13 +1,9 @@
 #include <SFML/Window.hpp>
 #include <iostream>
-#include "Cube.h"
-#include "MovingCube.h"
-#include "CubeTower.h"
 #include "Game.h"
 
 
-int main()
-{
+int main() {
     srand(time(0));
     const int width = 500;
     const int height = 500;

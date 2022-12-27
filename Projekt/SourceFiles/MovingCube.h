@@ -5,27 +5,29 @@
 #ifndef PROJEKT_MOVINGCUBE_H
 #define PROJEKT_MOVINGCUBE_H
 
-
 #include "Cube.h"
 #include "FixedCube.h"
 
 class MovingCube : public Cube {
 public:
-    MovingCube(double sizeX, double sizeY);
 
-    double placeCube(FixedCube onTopOf);
+    MovingCube(float sizeX, float sizeY);
+
+    float placeCube(FixedCube onTopOf);
     bool getMovingPath();
 
     void move();
 private:
     void toggleDirUpDown();
     void toggleDirLeftRight();
-    void resetCubeState(double deltaX, double deltaY);
+    void resetCubeState(float deltaX, float deltaY);
 
     enum dirUpDown {UP, DOWN};
     enum dirLeftRight {LEFT, RIGHT};
     enum path {ALONG_X, ALONG_Y};
-    int startHeight;
+    float startHeight;
+    float startOffsetX;
+    float startOffsetY;
     bool dirUpDown;
     bool dirLeftRight;
     bool path;

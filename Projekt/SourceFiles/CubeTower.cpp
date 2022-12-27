@@ -3,14 +3,14 @@
 //
 
 #include "CubeTower.h"
+#include "Constants.h"
 
 CubeTower::CubeTower() : towerHeight(0) {
-    addCube(sf::Vector2f(0,0), sf::Vector2f(250,250));
+    addCube(sf::Vector2f(0,0), sf::Vector2f(SCREEN_WIDTH/2,SCREEN_WIDTH/2));
 }
 
 void CubeTower::addCube(sf::Vector2f size, sf::Vector2f pos) {
-    cubeTower.emplace_back(pos.x, pos.y - towerHeight++ * 50,  size.x, size.y);
-
+    cubeTower.emplace_back(pos.x, pos.y,  size.x, size.y); // - towerHeight++ * 50
 
 }
 
@@ -32,4 +32,8 @@ std::vector<FixedCube>::iterator CubeTower::bottom() {
 
 FixedCube CubeTower::topCube() {
     return cubeTower.back();
+}
+
+size_t CubeTower::getSize() {
+    return cubeTower.size();
 }

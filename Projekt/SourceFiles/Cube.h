@@ -10,7 +10,7 @@
 
 class Cube {
 public:
-    explicit Cube(double sizeX, double sizeY);
+    explicit Cube(float sizeX, float sizeY);
     
     const sf::ConvexShape getShape();
 
@@ -26,6 +26,7 @@ public:
     void decreaseRight();
     void decreaseLeft();
 
+    void setColor(sf::Color color);
 
     double getSizeX();
     double getSizeY();
@@ -38,8 +39,8 @@ private:
     void setPoints();
 
     sf::ConvexShape cube;
-    double sizeX;
-    double sizeY;
+    float sizeX;
+    float sizeY;
 
     sf::Vector2f point1;
     sf::Vector2f point4;

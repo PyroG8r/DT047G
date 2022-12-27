@@ -4,16 +4,20 @@
 // "kortfattat vad filen innehåller"
 
 
+#include <iostream>
+#include <cmath>
 #include "Game.h"
+#include "Constants.h"
 
 Game::Game(const int width, const int height, const std::string& gameTitle)
 : window(sf::VideoMode(500, 500), gameTitle),
   movingCube(0, 0),
+  //floorCube(250, 500, 450, 450),
   view(sf::FloatRect(0, 0, 500.f, 500.f))
 {
     window.setFramerateLimit(60);
     settings.antialiasingLevel = 8;
-
+    //floorCube.setColor(sf::Color(167, 194, 175));
 
 }
 
@@ -37,6 +41,23 @@ void Game::initializeView() {
     //view.zoom(0.5f);
     window.setView(view);
 
+
+    if(!font.loadFromFile("Fonts/Roboto-Bold.ttf")){
+        std::cerr << "Error loading font" << std::endl;
+    }
+
+    scoreText.setFont(font);
+    scoreText.setString(std::to_string(score));
+    scoreText.setCharacterSize(50);
+    scoreText.setFillColor(sf::Color(64, 64, 64));
+
+    sf::FloatRect textRect = scoreText.getLocalBounds();
+    scoreText.setOrigin(textRect.left + textRect.width / 2.0f,
+                   textRect.top + textRect.height / 2.0f);
+
+
+    scoreText.setPosition(int(SCREEN_WIDTH/2), 50);
+
 }
 
 void Game::handleInputs() {
@@ -51,7 +72,14 @@ void Game::handleInputs() {
 
         if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Space) {
-                placeCube();
+
+                if(placeCube()){
+                    score++;
+                    scoreText.setString(std::to_string(score)); // Update the text object's string
+                }
+                else{
+                    gameOver();
+                }
             }
         }
     }
@@ -87,20 +115,27 @@ void Game::drawObjects() {
 
     window.clear(sf::Color(200, 200, 200));
 
+    window.setView(view);
+
     // print all cubes in tower using std::for_each
+    //window.draw(floorCube.getShape());
     std::for_each(cubeTower.bottom(), cubeTower.top(), [this](Cube &cube){window.draw(cube.getShape());});
     window.draw(movingCube.getShape());
+
+    //reset the view to default view to draw hud elements
+    window.setView(window.getDefaultView());
+    window.draw(scoreText);
 
     window.display();
 
 }
 
-void Game::placeCube() {
+bool Game::placeCube() {
     //move camera 1 cube height up
-    view.move(0,-50);
+    view.move(0,- CUBE_HEIGHT);
     window.setView(view);
 
-    double overHang;
+    float overHang;
     FixedCube topCube = cubeTower.topCube();
     sf::Vector2f placedPos(movingCube.getPos());
     sf::Vector2f newSize(movingCube.getSizeX(),movingCube.getSizeY());
@@ -110,29 +145,47 @@ void Game::placeCube() {
 
     //moving along x placed "under" tower
     if (placedPos.x < topCube.getPos().x && !movingCube.getMovingPath()){
-        newSize.x = movingCube.getSizeX() - overHang;
+        newSize.x -= overHang;
         placedPos = topCube.getPos();
+        placedPos.y = placedPos.y - CUBE_HEIGHT;
     }
     //moving along x placed "above" tower
-    if (placedPos.x > topCube.getPos().x && !movingCube.getMovingPath()){
-        newSize.x = movingCube.getSizeX() - overHang;
-        placedPos.y += 50;
+    else if (placedPos.x > topCube.getPos().x && !movingCube.getMovingPath()){
+        newSize.x -= overHang;
     }
     //moving along y placed "above" tower
-    if (placedPos.x < topCube.getPos().x && movingCube.getMovingPath()){
-        newSize.y = movingCube.getSizeY() - overHang;
-        placedPos.y += 100;
+    else if (placedPos.x < topCube.getPos().x && movingCube.getMovingPath()){
+        newSize.y -= overHang;
     }
     //moving along y placed "under" tower
-    if (placedPos.x > topCube.getPos().x && movingCube.getMovingPath()){
-        newSize.y = movingCube.getSizeY() - overHang;
+    else if (placedPos.x > topCube.getPos().x && movingCube.getMovingPath()){
+        newSize.y -= overHang;
         placedPos = topCube.getPos();
+        placedPos.y = placedPos.y - CUBE_HEIGHT;
     }
 
+    if (placedPos.x == topCube.getPos().x){
 
+    }
 
+    if (newSize.x < -CUBE_SIZE || newSize.y < -CUBE_SIZE ){
+        return false;
+    }
+    std::cout << "Place Pos X " <<  placedPos.x << " Y " << placedPos.y << "\n";
+    std::cout << "Size X " <<  movingCube.getSizeX() << " Y " << movingCube.getSizeY() << "\n";
+    std::cout << "Size X " <<  newSize.x << " Y " << newSize.y << "\n";
+    //newSize.x = ceil(newSize.x);
+    //newSize.y = ceil(newSize.y);
+    //std::cout << "Size X " <<  newSize.x << " Y " << newSize.y << "\n";
     cubeTower.addCube(newSize, placedPos);
     movingCube.setSize(sf::Vector2f(newSize.x,newSize.y));
+    return true;
+}
 
+void Game::gameOver() {
+    std::cout << "Game Over!...\n";
+    size_t towerHeight = cubeTower.getSize();
+    std::cout << "Tower Height - " << towerHeight << "\n";
+    view.zoom(towerHeight * 3);
 }
 

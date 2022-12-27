@@ -21,20 +21,25 @@ private:
     void handleInputs();
     void updateObjects();
     void drawObjects();
-    void placeCube();
+    bool placeCube();
+    void gameOver();
 
     //game objects
     sf::ContextSettings settings;
     sf::View view;
     sf::RenderWindow window;
+    sf::Font font;
+    sf::Text scoreText;
 
     //entities
     CubeTower cubeTower;
     MovingCube movingCube;
+    //FixedCube floorCube;
 
     //other
     sf::Vector2i mousePos;
     sf::Vector2f mouseWorldPos;
+    int score = 0;
 };
 
 

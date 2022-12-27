@@ -11,6 +11,7 @@ class CubeTower {
 public:
     CubeTower();
     void addCube(sf::Vector2f size, sf::Vector2f pos);
+    size_t getSize();
 
 
     FixedCube& operator[](std::size_t i);

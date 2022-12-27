@@ -9,7 +9,7 @@
 
 class FixedCube : public Cube {
 public:
-    FixedCube(float posX, float posY, double sizeX, double sizeY);
+    FixedCube(float posX, float posY, float sizeX, float sizeY);
 };
 
 

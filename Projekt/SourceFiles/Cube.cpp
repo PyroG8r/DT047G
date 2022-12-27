@@ -6,7 +6,7 @@
 
 
 
-Cube::Cube(double sizeX, double sizeY) : sizeX(sizeX), sizeY(sizeY){
+Cube::Cube(float sizeX, float sizeY) : sizeX(sizeX), sizeY(sizeY){
     cube.setPointCount(6);
     cube.setFillColor(sf::Color(157, 158, 157));
     cube.setOutlineColor(sf::Color(112, 112, 112));
@@ -69,9 +69,9 @@ void Cube::decreaseLeft() {
     setPoints();
 }
 
-void Cube::setSize(sf::Vector2f size){
-    sizeX = size.x;
-    sizeY = size.y;
+void Cube::setSize(sf::Vector2f newSize){
+    sizeX = newSize.x;
+    sizeY = newSize.y;
     setPoints();
 }
 
@@ -81,6 +81,10 @@ double Cube::getSizeX() {
 
 double Cube::getSizeY() {
     return sizeY;
+}
+
+void Cube::setColor(sf::Color color) {
+    cube.setFillColor(color);
 }
 
 
