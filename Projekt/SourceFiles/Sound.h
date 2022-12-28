@@ -8,18 +8,18 @@
 #define PROJEKT_SOUND_H
 
 #include <SFML/Audio.hpp>
-/*
+
 #include <string>
 
-class Sound {
+class Sound: public sf::Sound
+{
 public:
-    explicit Sound(std::string path);
-    void play();
+    Sound(std::string path);
+
 private:
-    sf::Sound sound;
     sf::SoundBuffer buffer;
 
 };
-*/
+
 
 #endif //PROJEKT_SOUND_H
