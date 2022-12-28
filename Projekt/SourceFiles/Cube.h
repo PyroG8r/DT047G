@@ -13,6 +13,7 @@ public:
     explicit Cube(float sizeX, float sizeY);
     
     const sf::ConvexShape getShape();
+    std::vector<sf::ConvexShape> getDetails();
 
     void setPos(sf::Vector2f);
     sf::Vector2f getPos();
@@ -37,13 +38,15 @@ public:
     sf::Vector2f point6;
 private:
     void setPoints();
-
+    void setDetails();
+    std::vector<sf::ConvexShape> details;
     sf::ConvexShape cube;
     float sizeX;
     float sizeY;
 
     sf::Vector2f point1;
     sf::Vector2f point4;
+    sf::Vector2f point7;
 
 };
 
