@@ -9,7 +9,7 @@
 Cube::Cube(float sizeX, float sizeY) : sizeX(sizeX), sizeY(sizeY){
     details.resize(3);
     cube.setPointCount(6);
-    cube.setFillColor(sf::Color(0, 255, 204));
+    cube.setFillColor(sf::Color(36, 213, 151));
     //cube.setOutlineColor(sf::Color(112, 112, 112));
     //cube.setOutlineThickness(3);
 
@@ -19,9 +19,9 @@ Cube::Cube(float sizeX, float sizeY) : sizeX(sizeX), sizeY(sizeY){
         details[i].setPointCount(4);
         details[i].setOrigin(50,50);
     }
-    details[0].setFillColor(sf::Color(170, 170, 170, 128));
-    details[1].setFillColor(sf::Color(145, 145, 145, 128));
-    details[2].setFillColor(sf::Color(130, 130, 130, 128));
+    details[0].setFillColor(sf::Color(170, 170, 170, 100));
+    details[1].setFillColor(sf::Color(145, 145, 145, 100));
+    details[2].setFillColor(sf::Color(130, 130, 130, 100));
 
     setPoints();
     setDetails();

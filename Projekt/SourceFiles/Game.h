@@ -7,7 +7,7 @@
 #ifndef PROJEKT_GAME_H
 #define PROJEKT_GAME_H
 
-//#include <SFML/Audio.hpp>
+#include <SFML/Audio.hpp>
 #include "Cube.h"
 #include "MovingCube.h"
 #include "FixedCube.h"
@@ -27,6 +27,8 @@ private:
     void drawObjects();
     bool placeCube();
     void gameOver();
+    void getHighScore();
+    void updateHighScore();
 
     //game objects
     sf::ContextSettings settings;
@@ -45,6 +47,7 @@ private:
     sf::Vector2i mousePos;
     sf::Vector2f mouseWorldPos;
     int score = 0;
+    int highScore;
     bool paused = true;
 
     //sounds

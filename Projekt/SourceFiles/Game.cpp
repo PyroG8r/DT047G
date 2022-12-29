@@ -18,6 +18,7 @@ Game::Game(const int width, const int height, const std::string& gameTitle)
 {
     window.setFramerateLimit(60);
     settings.antialiasingLevel = 8;
+    getHighScore();
     //floorCube.setColor(sf::Color(167, 194, 175));
 
     /*sf::SoundBuffer soundBuffer;
@@ -141,7 +142,7 @@ void Game::updateObjects() {
 }
 void Game::drawObjects() {
 
-    window.clear(sf::Color(200, 200, 200));
+    window.clear(sf::Color(223, 207, 165));
 
     window.setView(view);
 
@@ -216,23 +217,43 @@ bool Game::placeCube() {
 }
 
 void Game::gameOver() {
-    //open file highscore.txt and write score to it by overwriting the previous score
-    std::ofstream highscoreFile;
-    highscoreFile.open("highscore.txt");
-    highscoreFile << score;
-    highscoreFile.close();
+    updateHighScore();
 
     paused = true;
     mainMenu.showMenu(true);
     view.zoom(1 + float(score) / 5);
 }
 
+void Game::getHighScore() {
+    //read highScore from file with error handling
+    std::ifstream highScoreFile;
+    highScoreFile.open("highScore.txt");
+    if (highScoreFile.is_open()){
+        highScoreFile >> highScore;
+        highScoreFile.close();
+    }
+    else{
+        std::cout << "Failed to open highScore.txt";
+    }
+}
+
+void Game::updateHighScore() {
+    if (score > highScore){
+        highScore = score;
+        std::ofstream highScoreFile;
+        highScoreFile.open("highScore.txt");
+        highScoreFile << highScore;
+        highScoreFile.close();
+        mainMenu.updateHighScore(highScore);
+    }
+}
 
 
 
-    /*std::cout << "Place Pos X " <<  placedPos.x << " Y " << placedPos.y << "\n";
-    std::cout << "Size X " <<  movingCube.getSizeX() << " Y " << movingCube.getSizeY() << "\n";
-    std::cout << "Size X " <<  newSize.x << " Y " << newSize.y << "\n";
-    //newSize.x = ceil(newSize.x);
-    //newSize.y = ceil(newSize.y);
-    //std::cout << "Size X " <<  newSize.x << " Y " << newSize.y << "\n";*/
+
+/*std::cout << "Place Pos X " <<  placedPos.x << " Y " << placedPos.y << "\n";
+std::cout << "Size X " <<  movingCube.getSizeX() << " Y " << movingCube.getSizeY() << "\n";
+std::cout << "Size X " <<  newSize.x << " Y " << newSize.y << "\n";
+//newSize.x = ceil(newSize.x);
+//newSize.y = ceil(newSize.y);
+//std::cout << "Size X " <<  newSize.x << " Y " << newSize.y << "\n";*/

@@ -10,6 +10,13 @@
 
 class Cube {
 public:
+    /**
+     * @brief Creates a cube with a given size
+     * @param sizeX The size of the cube in the x-axis
+     * @param sizeY The size of the cube in the y-axis
+     * @details ...
+     * 
+    */
     explicit Cube(float sizeX, float sizeY);
     
     const sf::ConvexShape getShape();

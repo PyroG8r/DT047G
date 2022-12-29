@@ -7,7 +7,7 @@ add_executable(Projekt SourceFiles/main.cpp SourceFiles/Cube.cpp SourceFiles/Cub
 
 set(SFML_STATIC_LIBRARIES TRUE)
 set(SFML_DIR C:/SFML/lib/cmake/SFML)
-find_package(SFML COMPONENTS graphics window system audio REQUIRED)
-
+find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
 include_directories(C:/SFML/include)
-target_link_libraries(Projekt sfml-graphics sfml-window sfml-system sfml-audio)
+
+target_link_libraries(Projekt sfml-system sfml-window sfml-graphics sfml-audio sfml-network)

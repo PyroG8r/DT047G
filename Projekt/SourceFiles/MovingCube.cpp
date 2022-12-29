@@ -9,7 +9,14 @@
 
 // problem with initializing dirUpDown
 MovingCube::MovingCube(float sizeX, float sizeY)
-: Cube(sizeX, sizeY), dirUpDown(DOWN), dirLeftRight(LEFT), path(ALONG_X), startHeight(0), startOffsetX(0), startOffsetY(0) {
+: Cube(sizeX, sizeY), 
+dirUpDown(DOWN), 
+dirLeftRight(LEFT), 
+path(ALONG_X), 
+startHeight(0), 
+startOffsetX(0), 
+startOffsetY(0) 
+{
     setPos(sf::Vector2f(SCREEN_WIDTH + 50,CUBE_HEIGHT));
 }
 

@@ -23,11 +23,11 @@ Menu::Menu() {
     menu[2].setFont(font);
     menu[2].setFillColor(sf::Color(64, 64, 64));
     menu[2].setCharacterSize(50);
-    //open file highscore.txt and read highscore
-    std::ifstream highscoreFile("highscore.txt");
-    highscoreFile >> highscore;
+    //open file highScore.txt and read highScore
+    std::ifstream highscoreFile("highScore.txt");
+    highscoreFile >> highScore;
     highscoreFile.close();
-    menu[2].setString("HIGHSCORE: " + std::to_string(highscore));
+    menu[2].setString("HIGHSCORE: " + std::to_string(highScore));
 
     //center the text
     sf::FloatRect textRect = menu[2].getLocalBounds();
@@ -37,14 +37,14 @@ Menu::Menu() {
     menu[2].setPosition(sf::Vector2f(250, 50));
 
     background.setSize(sf::Vector2f(500, 500));
-    background.setFillColor(sf::Color(0, 0, 0, 100));
+    background.setFillColor(sf::Color(226,191,145));
 
     play_button.setSize(sf::Vector2f(100, 50));
-    play_button.setFillColor(sf::Color(184, 184, 184));
+    play_button.setFillColor(buttonColor);
     play_button.setPosition(sf::Vector2f(200, 150));
 
     exit_button.setSize(sf::Vector2f(100, 50));
-    exit_button.setFillColor(sf::Color(184, 184, 184));
+    exit_button.setFillColor(buttonColor);
     exit_button.setPosition(sf::Vector2f(200, 250));
 
 
@@ -66,22 +66,27 @@ void Menu::draw(sf::RenderWindow &window) {
 
 void Menu::showMenu(bool input) {
     show_menu = input;
-
 }
 
 bool Menu::isPlayButtonPressed(sf::Vector2i mousePos) {
-    if(mousePos.x > play_button.getPosition().x && mousePos.x < play_button.getPosition().x + play_button.getSize().x &&
-       mousePos.y > play_button.getPosition().y && mousePos.y < play_button.getPosition().y + play_button.getSize().y) {
+    isButtonPressed(mousePos, play_button);
+}
+
+bool Menu::isExitButtonPressed(sf::Vector2i mousePos) {
+    isButtonPressed(mousePos, exit_button);
+}
+
+bool Menu::isButtonPressed(sf::Vector2i mousePos, const sf::RectangleShape& button) {
+    if(mousePos.x > (int)button.getPosition().x && mousePos.x < (int)button.getPosition().x + (int)button.getSize().x &&
+       mousePos.y > (int)button.getPosition().y && mousePos.y < (int)button.getPosition().y + (int)button.getSize().y) {
         return true;
     }
     return false;
 }
 
-bool Menu::isExitButtonPressed(sf::Vector2i mousePos) {
-    if(mousePos.x > exit_button.getPosition().x && mousePos.x < exit_button.getPosition().x + exit_button.getSize().x &&
-       mousePos.y > exit_button.getPosition().y && mousePos.y < exit_button.getPosition().y + exit_button.getSize().y) {
-        return true;
-    }
-    return false;
+void Menu::updateHighScore(int newHighScore) {
+    highScore = newHighScore;
+    menu[2].setString("HIGHSCORE: " + std::to_string(highScore));
 }
+
 
