@@ -9,50 +9,37 @@
 
 
 
-class Cube {
+class Cube : public sf::ConvexShape {
 public:
-    /**
-     * @brief Creates a cube with a given size
-     * @param sizeX The size of the cube in the x-axis
-     * @param sizeY The size of the cube in the y-axis
-     * @details ...
-     * 
-    */
     explicit Cube(float sizeX, float sizeY);
-    
-    const sf::ConvexShape getShape();
-    std::vector<sf::ConvexShape> getDetails();
 
-    void setPos(sf::Vector2f);
-    sf::Vector2f getPos();
+    void draw(sf::RenderWindow &window);
+
+    void setCubePosition(const sf::Vector2f& position);
 
 
-    void setSize(sf::Vector2f);
+    void setSize(const sf::Vector2f& newSize);
+    double getSizeX() const;
+    double getSizeY() const;
 
-    void increaseRight();
-    void increaseLeft();
+    void increaseXAxis();
+    void increaseYAxis();
 
-    void decreaseRight();
-    void decreaseLeft();
+    void decreaseXAxis();
+    void decreaseYAxis();
 
-    void setColor(sf::Color color);
-
-    double getSizeX();
-    double getSizeY();
-
-    sf::Vector2f point2;
-    sf::Vector2f point3;
     sf::Vector2f point5;
     sf::Vector2f point6;
 private:
     void setPoints();
-    void setDetails();
-    std::vector<sf::ConvexShape> details;
-    sf::ConvexShape cube;
+    void setFacePoints();
+    std::vector<sf::ConvexShape> faces;
     float sizeX;
     float sizeY;
 
     sf::Vector2f point1;
+    sf::Vector2f point2;
+    sf::Vector2f point3;
     sf::Vector2f point4;
     sf::Vector2f point7;
 

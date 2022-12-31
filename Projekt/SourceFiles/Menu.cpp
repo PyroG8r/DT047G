@@ -69,11 +69,17 @@ void Menu::showMenu(bool input) {
 }
 
 bool Menu::isPlayButtonPressed(sf::Vector2i mousePos) {
-    isButtonPressed(mousePos, play_button);
+    if(show_menu){
+        return isButtonPressed(mousePos, play_button);
+    }
+    return false;
 }
 
 bool Menu::isExitButtonPressed(sf::Vector2i mousePos) {
-    isButtonPressed(mousePos, exit_button);
+    if(show_menu){
+        return isButtonPressed(mousePos, exit_button);
+    }
+    return false;
 }
 
 bool Menu::isButtonPressed(sf::Vector2i mousePos, const sf::RectangleShape& button) {

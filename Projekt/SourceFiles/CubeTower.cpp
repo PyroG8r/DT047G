@@ -5,7 +5,7 @@
 #include "CubeTower.h"
 #include "Constants.h"
 
-CubeTower::CubeTower() : towerHeight(0) {
+CubeTower::CubeTower() {
     addCube(sf::Vector2f(0,0), sf::Vector2f(SCREEN_WIDTH/2,SCREEN_WIDTH/2));
 }
 
