@@ -25,7 +25,6 @@ Game::Game(const int width, const int height, const std::string& gameTitle)
     soundBuffer.loadFromFile("Sounds/placeCube.wav");
     sf::Sound sound(soundBuffer);*/
 
-
 }
 
 void Game::run() {
@@ -124,42 +123,33 @@ void Game::updateObjects() {
 
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
-        movingCube.setPos(mouseWorldPos);
+        movingCube.setCubePosition(mouseWorldPos);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-        movingCube.increaseLeft();
+        movingCube.increaseYAxis();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-        movingCube.decreaseLeft();
+        movingCube.decreaseYAxis();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-        movingCube.increaseRight();
+        movingCube.increaseXAxis();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-        movingCube.decreaseRight();
+        movingCube.decreaseXAxis();
     }
 }
 void Game::drawObjects() {
-
     window.clear(sf::Color(223, 207, 165));
-
     window.setView(view);
 
     // print all cubes in tower using std::for_each
     //window.draw(floorCube.getShape());
     std::for_each(cubeTower.bottom(), cubeTower.top(), [this](Cube &cube){
-        window.draw(cube.getShape());
-        window.draw(cube.getDetails()[0]);
-        window.draw(cube.getDetails()[1]);
-        window.draw(cube.getDetails()[2]);
+        cube.draw(window);
     });
+    movingCube.draw(window);
 
-    window.draw(movingCube.getShape());
-
-    window.draw(movingCube.getDetails()[0]);
-    window.draw(movingCube.getDetails()[1]);
-    window.draw(movingCube.getDetails()[2]);
 
     //reset the view to default view to draw hud elements
     window.setView(window.getDefaultView());
@@ -168,43 +158,44 @@ void Game::drawObjects() {
     mainMenu.draw(window);
 
     window.display();
-
 }
 
 bool Game::placeCube() {
     //move camera 1 cube height up
     view.move(0,- CUBE_HEIGHT);
 
+
+
     float overHang;
     FixedCube topCube = cubeTower.topCube();
-    sf::Vector2f placedPos(movingCube.getPos());
+    sf::Vector2f placedPos(movingCube.getPosition());
     sf::Vector2f newSize(movingCube.getSizeX(),movingCube.getSizeY());
 
 
     overHang = movingCube.placeCube(topCube);
 
     //moving along x placed "under" tower
-    if (placedPos.x < topCube.getPos().x && !movingCube.getMovingPath()){
+    if (placedPos.x < topCube.getPosition().x && !movingCube.getMovingPath()){
         newSize.x -= overHang;
-        placedPos = topCube.getPos();
+        placedPos = topCube.getPosition();
         placedPos.y = placedPos.y - CUBE_HEIGHT;
     }
     //moving along x placed "above" tower
-    else if (placedPos.x > topCube.getPos().x && !movingCube.getMovingPath()){
+    else if (placedPos.x > topCube.getPosition().x && !movingCube.getMovingPath()){
         newSize.x -= overHang;
     }
     //moving along y placed "above" tower
-    else if (placedPos.x < topCube.getPos().x && movingCube.getMovingPath()){
+    else if (placedPos.x < topCube.getPosition().x && movingCube.getMovingPath()){
         newSize.y -= overHang;
     }
     //moving along y placed "under" tower
-    else if (placedPos.x > topCube.getPos().x && movingCube.getMovingPath()){
+    else if (placedPos.x > topCube.getPosition().x && movingCube.getMovingPath()){
         newSize.y -= overHang;
-        placedPos = topCube.getPos();
+        placedPos = topCube.getPosition();
         placedPos.y = placedPos.y - CUBE_HEIGHT;
     }
 
-    if (placedPos.x == topCube.getPos().x){
+    if (placedPos.x == topCube.getPosition().x){
 
     }
 

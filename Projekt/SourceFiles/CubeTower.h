@@ -25,7 +25,6 @@ public:
 
 private:
     std::vector<FixedCube> cubeTower;
-    int towerHeight;
 };
 
 

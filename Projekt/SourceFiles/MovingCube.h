@@ -34,13 +34,13 @@ public:
      * @param onTopOf The cube to place the cube on
      * @return The amount of overhang the cube has
     */
-    float placeCube(FixedCube onTopOf);
+    float placeCube(const FixedCube& onTopOf);
 
     /**
      * @brief Returns the direction the cube is moving in
      * @return True if the cube is moving along the y-axis, false if it is moving along the x-axis
     */
-    bool getMovingPath();
+    bool getMovingPath() const;
 
     /**
      * @brief Moves the cube
