@@ -164,32 +164,28 @@ bool Game::placeCube() {
     //move camera 1 cube height up
     view.move(0,- CUBE_HEIGHT);
 
-
-
-    float overHang;
     FixedCube topCube = cubeTower.topCube();
     sf::Vector2f placedPos(movingCube.getPosition());
     sf::Vector2f newSize(movingCube.getSizeX(),movingCube.getSizeY());
 
-
     overHang = movingCube.placeCube(topCube);
 
     //moving along x placed "under" tower
-    if (placedPos.x < topCube.getPosition().x && !movingCube.getMovingPath()){
+    if (!movingCube.getMovingPath() && placedPos.x < topCube.getPosition().x){
         newSize.x -= overHang;
         placedPos = topCube.getPosition();
         placedPos.y = placedPos.y - CUBE_HEIGHT;
     }
     //moving along x placed "above" tower
-    else if (placedPos.x > topCube.getPosition().x && !movingCube.getMovingPath()){
+    else if (!movingCube.getMovingPath() && placedPos.x > topCube.getPosition().x){
         newSize.x -= overHang;
     }
     //moving along y placed "above" tower
-    else if (placedPos.x < topCube.getPosition().x && movingCube.getMovingPath()){
+    else if (movingCube.getMovingPath() && placedPos.x < topCube.getPosition().x){
         newSize.y -= overHang;
     }
     //moving along y placed "under" tower
-    else if (placedPos.x > topCube.getPosition().x && movingCube.getMovingPath()){
+    else if (movingCube.getMovingPath() && placedPos.x > topCube.getPosition().x){
         newSize.y -= overHang;
         placedPos = topCube.getPosition();
         placedPos.y = placedPos.y - CUBE_HEIGHT;
@@ -199,11 +195,12 @@ bool Game::placeCube() {
 
     }
 
+    //failes to place cube
     if (newSize.x < -CUBE_SIZE || newSize.y < -CUBE_SIZE ){
         return false;
     }
     cubeTower.addCube(newSize, placedPos);
-    movingCube.setSize(sf::Vector2f(newSize.x,newSize.y));
+    movingCube.setSize(newSize);
     return true;
 }
 

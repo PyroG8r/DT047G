@@ -46,6 +46,7 @@ private:
     //other
     sf::Vector2i mousePos;
     sf::Vector2f mouseWorldPos;
+    float overHang;
     int score = 0;
     int highScore;
     bool paused = true;
