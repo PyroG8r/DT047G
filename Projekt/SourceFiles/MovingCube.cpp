@@ -13,10 +13,7 @@ MovingCube::MovingCube(float sizeX, float sizeY)
 : Cube(sizeX, sizeY), 
 dirUpDown(DOWN), 
 dirLeftRight(LEFT), 
-path(ALONG_X), 
-startHeight(0), 
-startOffsetX(0), 
-startOffsetY(0) 
+path(ALONG_X)
 {
     setCubePosition(sf::Vector2f(SCREEN_WIDTH + 50,CUBE_HEIGHT));
 }
@@ -65,16 +62,6 @@ float MovingCube::placeCube(const FixedCube& TopCube) {
     float deltaY = movingPoint5.y - towerPoint6.y;
 
     float overHang = std::sqrt((float)pow(deltaX, 2) + (float)pow(deltaY,2));
-
-
-
-    std::cout << towerPoint6.x << " : " << towerPoint6.y << "\n"
-              << movingPoint5.x << " : " << movingPoint5.y << "\n"
-             << deltaX << " : " << deltaY << "\n"
-             << "overhang: " << overHang << "\n";
-
-
-
 
     resetCubeState(deltaX, deltaY);
 

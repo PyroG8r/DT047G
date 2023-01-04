@@ -56,12 +56,12 @@ private:
     enum dirUpDown {UP, DOWN};
     enum dirLeftRight {LEFT, RIGHT};
     enum path {ALONG_X, ALONG_Y};
-    float startHeight;
-    float startOffsetX;
-    float startOffsetY;
     bool dirUpDown;
     bool dirLeftRight;
     bool path;
+    float startHeight = 0;
+    float startOffsetX = 0;
+    float startOffsetY = 0;
     float speed = 1;
 };
 

@@ -56,8 +56,8 @@ void Menu::draw(sf::RenderWindow &window) {
         window.draw(background);
         window.draw(play_button);
         window.draw(exit_button);
-        for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++) {
-            window.draw(menu[i]);
+        for (const auto & text : menu) {
+            window.draw(text);
         }
     }
     

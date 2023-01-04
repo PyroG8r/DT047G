@@ -13,8 +13,17 @@ class Cube : public sf::ConvexShape {
 public:
     explicit Cube(float sizeX, float sizeY);
 
+    /**
+     * @brief Draws the cube to the window
+     * @param window The window to draw to
+    */
     void draw(sf::RenderWindow &window);
 
+    /**
+     * @brief Sets the position of the cube
+     * @param position The position to set the cube to
+     * @details Updates the position of the cube and all faces
+    */
     void setCubePosition(const sf::Vector2f& position);
 
 
