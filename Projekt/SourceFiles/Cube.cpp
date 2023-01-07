@@ -2,6 +2,7 @@
 // Created by emilj on 2022-12-17.
 //
 
+#include <iostream>
 #include "Cube.h"
 
 

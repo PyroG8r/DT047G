@@ -48,6 +48,9 @@ public:
      * and changes the direction if it is outside the screen
     */
     void move();
+
+    void resetCubeForNewRound();
+
 private:
     void toggleDirUpDown();
     void toggleDirLeftRight();
@@ -56,9 +59,9 @@ private:
     enum dirUpDown {UP, DOWN};
     enum dirLeftRight {LEFT, RIGHT};
     enum path {ALONG_X, ALONG_Y};
-    bool dirUpDown;
-    bool dirLeftRight;
-    bool path;
+    bool dirUpDown = DOWN;
+    bool dirLeftRight = LEFT;
+    bool path = ALONG_X;
     float startHeight = 0;
     float startOffsetX = 0;
     float startOffsetY = 0;
