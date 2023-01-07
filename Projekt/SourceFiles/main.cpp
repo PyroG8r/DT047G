@@ -8,15 +8,10 @@ int main() {
     const int width = 500;
     const int height = 500;
     const std::string gameTitle = "Stacker";
-    Game game(width, height, gameTitle);
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+    Game game(width, height, gameTitle, settings);
     game.run();
-
-
-        /*std::cout << movingCube.getSizeX() << "\n";
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-            movingCube.toggleDirLeftRight();
-        }*/
-
     return 0;
 }
 

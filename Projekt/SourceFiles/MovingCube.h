@@ -49,6 +49,11 @@ public:
     */
     void move();
 
+    /**
+     * @brief Resets the cube to its starting position
+     * @details The cube is placed to its original position for 
+     * use when restarting the game
+    */
     void resetCubeForNewRound();
 
 private:
@@ -65,7 +70,6 @@ private:
     float startHeight = 0;
     float startOffsetX = 0;
     float startOffsetY = 0;
-    float speed = 1;
 };
 
 

@@ -9,17 +9,13 @@
 #include "Game.h"
 #include "Constants.h"
 
-Game::Game(const int width, const int height, const std::string& gameTitle)
-: window(sf::VideoMode(width, height), gameTitle),
+Game::Game(const int width, const int height, const std::string& gameTitle, sf::ContextSettings settings)
+: window(sf::VideoMode(width, height), gameTitle, sf::Style::Default, settings),
   movingCube(0, 0),
   floorCube(250, 500, 330, 330),
   view(sf::FloatRect(0, 0, 500.f, 500.f))
 {
     window.setFramerateLimit(60);
-    settings.antialiasingLevel = 0;
-    floorCube.setFillColor(sf::Color(167, 194, 175));
-
-
 }
 
 void Game::run() {
@@ -36,10 +32,10 @@ void Game::run() {
 void Game::initializeElements() {
     getHighScore();
 
-    if(!font.loadFromFile("Fonts/Roboto-Bold.ttf")){
-        std::cerr << "Error loading font" << std::endl;
-    }
+    floorCube.setFillColor(sf::Color(55, 161, 143));
 
+    //set score text
+    font.loadFromFile("Fonts/Roboto-Bold.ttf");
     scoreText.setFont(font);
     scoreText.setString(std::to_string(score));
     scoreText.setCharacterSize(50);
@@ -49,9 +45,7 @@ void Game::initializeElements() {
     scoreText.setOrigin(textRect.left + textRect.width / 2.0f,
                    textRect.top + textRect.height / 2.0f);
 
-
     scoreText.setPosition(int(SCREEN_WIDTH/2), 50);
-
 }
 
 void Game::handleInputs() {
@@ -73,8 +67,6 @@ void Game::handleInputs() {
                 else if(placeCube()){
                     score++;
                     scoreText.setString(std::to_string(score)); // Update the text object's string
-                    //Sound placeCubeSound(placeCubeSound_path);
-                    //placeCubeSound.play();
                 }
                 else{
                     gameOver();
@@ -92,6 +84,7 @@ void Game::handleInputs() {
                 }
             }
         }
+        // Check what button is pressed
         if (event.type == sf::Event::MouseButtonPressed) {
             if (mainMenu.isPlayButtonPressed(mousePos)) {
                 mainMenu.showPauseMenu(false);
@@ -139,7 +132,6 @@ void Game::updateObjects() {
 void Game::placeCubeAnimations() {
     if (incrementCubeAnimation){
         if (incrementCubeAnimationAmount < 10){
-
             if(movingCube.getMovingPath()) {
                 movingCube.increaseXAxis();
                 cubeTower.topCube().increaseXAxis();
@@ -148,7 +140,6 @@ void Game::placeCubeAnimations() {
                 movingCube.increaseYAxis();
                 cubeTower.topCube().increaseYAxis();
             }
-
             incrementCubeAnimationAmount++;
         }
         else{
@@ -159,6 +150,7 @@ void Game::placeCubeAnimations() {
 }
 
 void Game::gameOverAnimation() {
+    // over the span of 60 frames (i.e 1 sec) zoom out
     if(isGameOver){
         if (zoomAmount < 60) {
             view.zoom(1 + float(score) / 1000);
@@ -190,45 +182,45 @@ void Game::drawObjects() {
 
 bool Game::placeCube() {
     FixedCube topCube = cubeTower.topCube();
-    sf::Vector2f placedPos(movingCube.getPosition());
-    sf::Vector2f newSize(movingCube.getSizeX(),movingCube.getSizeY());
+    sf::Vector2f placedCubePosition(movingCube.getPosition());
+    sf::Vector2f newCubeSize(movingCube.getSize());
 
     overHang = movingCube.placeCube(topCube);
 
     //moving along x placed "under" tower
-    if (!movingCube.getMovingPath() && placedPos.x < topCube.getPosition().x){
-        newSize.x -= overHang;
-        placedPos = topCube.getPosition();
-        placedPos.y = placedPos.y - CUBE_HEIGHT;
+    if (!movingCube.getMovingPath() && placedCubePosition.x < topCube.getPosition().x){
+        newCubeSize.x -= overHang;
+        placedCubePosition = topCube.getPosition();
+        placedCubePosition.y = placedCubePosition.y - CUBE_HEIGHT;
     }
     //moving along x placed "above" tower
-    else if (!movingCube.getMovingPath() && placedPos.x > topCube.getPosition().x){
-        newSize.x -= overHang;
+    else if (!movingCube.getMovingPath() && placedCubePosition.x > topCube.getPosition().x){
+        newCubeSize.x -= overHang;
     }
     //moving along y placed "above" tower
-    else if (movingCube.getMovingPath() && placedPos.x < topCube.getPosition().x){
-        newSize.y -= overHang;
+    else if (movingCube.getMovingPath() && placedCubePosition.x < topCube.getPosition().x){
+        newCubeSize.y -= overHang;
     }
     //moving along y placed "under" tower
-    else if (movingCube.getMovingPath() && placedPos.x > topCube.getPosition().x){
-        newSize.y -= overHang;
-        placedPos = topCube.getPosition();
-        placedPos.y = placedPos.y - CUBE_HEIGHT;
+    else if (movingCube.getMovingPath() && placedCubePosition.x > topCube.getPosition().x){
+        newCubeSize.y -= overHang;
+        placedCubePosition = topCube.getPosition();
+        placedCubePosition.y = placedCubePosition.y - CUBE_HEIGHT;
     }
 
     //cube is placed perfect
-    else if (placedPos.x == topCube.getPosition().x){
+    else if (placedCubePosition.x == topCube.getPosition().x){
         incrementCubeAnimation = true;
     }
 
-    //failes to place cube
-    if (newSize.x < -CUBE_SIZE || newSize.y < -CUBE_SIZE ){
+    //fails to place cube
+    if (newCubeSize.x < -CUBE_SIZE || newCubeSize.y < -CUBE_SIZE ){
         return false;
     }
     //move camera 1 cube height up
     view.move(0,- CUBE_HEIGHT);
-    cubeTower.addCube(newSize, placedPos);
-    movingCube.setSize(newSize);
+    cubeTower.addCube(newCubeSize, placedCubePosition);
+    movingCube.setSize(newCubeSize);
     return true;
 }
 

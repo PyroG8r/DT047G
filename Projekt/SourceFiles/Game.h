@@ -17,7 +17,7 @@
 
 class Game {
 public:
-    Game(int width, int height, const std::string& gameTitle);
+    Game(int width, int height, const std::string& gameTitle, sf::ContextSettings settings);
     void run();
 private:
     void initializeElements();
@@ -33,7 +33,6 @@ private:
     void restartGame();
 
     //game objects
-    sf::ContextSettings settings;
     sf::View view;
     sf::RenderWindow window;
     sf::Font font;

@@ -5,7 +5,6 @@
 #include <cmath>
 #include <iostream>
 #include "MovingCube.h"
-#include "cmath"
 #include "Constants.h"
 
 // problem with initializing dirUpDown
@@ -23,19 +22,19 @@ void MovingCube::move() {
         toggleDirLeftRight();
     }
     if (dirLeftRight == LEFT && dirUpDown == DOWN){
-        setCubePosition(sf::Vector2f(pos.x - 2 * speed, pos.y + 1 * speed));
+        setCubePosition(sf::Vector2f(pos.x - 2, pos.y + 1));
         path = ALONG_X;
     }
     if (dirLeftRight == LEFT && dirUpDown == UP) {
-        setCubePosition(sf::Vector2f(pos.x - 2 * speed, pos.y - 1 * speed));
+        setCubePosition(sf::Vector2f(pos.x - 2, pos.y - 1));
         path = ALONG_Y;
     }
     if (dirLeftRight == RIGHT && dirUpDown == DOWN) {
-        setCubePosition(sf::Vector2f(pos.x + 2 * speed, pos.y + 1 * speed));
+        setCubePosition(sf::Vector2f(pos.x + 2, pos.y + 1));
         path = ALONG_Y;
     }
     if (dirLeftRight == RIGHT && dirUpDown == UP) {
-        setCubePosition(sf::Vector2f(pos.x + 2 * speed, pos.y - 1 * speed));
+        setCubePosition(sf::Vector2f(pos.x + 2, pos.y - 1));
         path = ALONG_X;
     }
 }
@@ -49,14 +48,8 @@ void MovingCube::toggleDirUpDown() {
 }
 
 float MovingCube::placeCube(const FixedCube& TopCube) {
-    sf::Vector2f topCubePos = TopCube.getPosition();
-    sf::Vector2f thisCubePos = getPosition();
-
-    sf::Vector2f towerPoint6 = topCubePos + TopCube.point6;
-    sf::Vector2f movingPoint5 = thisCubePos + point5;
-
-    float deltaX = movingPoint5.x - towerPoint6.x;
-    float deltaY = movingPoint5.y - towerPoint6.y;
+    float deltaX = getPosition().x - TopCube.getPosition().x;
+    float deltaY = getPosition().y + CUBE_HEIGHT - TopCube.getPosition().y;
 
     float overHang = std::sqrt((float)pow(deltaX, 2) + (float)pow(deltaY,2));
 
@@ -68,15 +61,16 @@ float MovingCube::placeCube(const FixedCube& TopCube) {
 
 
 void MovingCube::resetCubeState(float deltaX, float deltaY) {
+
     if (path == ALONG_X){
-        //placed before tower
+        //placed before tower an offset is stored of how much the cube is moved
         if (deltaX > 0){
             startOffsetX += deltaX;
             startOffsetY += deltaY;
         }
         setCubePosition(sf::Vector2f(-50 + startOffsetX, -startHeight++ * CUBE_HEIGHT + startOffsetY));
 
-        if (dirLeftRight == LEFT) toggleDirLeftRight();
+        dirLeftRight = RIGHT;
     }
     //path along y
     else {
@@ -87,10 +81,9 @@ void MovingCube::resetCubeState(float deltaX, float deltaY) {
         }
         setCubePosition(sf::Vector2f(SCREEN_WIDTH+50 + startOffsetX, -startHeight++ * CUBE_HEIGHT + startOffsetY));
 
-
-        if (dirLeftRight == RIGHT) toggleDirLeftRight();
+        // Reset the
+        dirLeftRight = LEFT;
     }
-
     dirUpDown = DOWN;
 }
 
@@ -107,12 +100,6 @@ void  MovingCube::resetCubeForNewRound() {
     startOffsetX = 0;
     startOffsetY = 0;
 }
-
-
-
-
-
-
 
 /*
 

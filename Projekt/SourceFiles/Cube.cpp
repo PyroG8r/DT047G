@@ -108,13 +108,10 @@ void Cube::setSize(const sf::Vector2f& newSize){
     setPoints();
 }
 
-double Cube::getSizeX() const {
-    return sizeX;
+sf::Vector2f Cube::getSize() const {
+    return {sizeX, sizeY};
 }
 
-double Cube::getSizeY() const {
-    return sizeY;
-}
 
 
 

@@ -28,8 +28,7 @@ public:
 
 
     void setSize(const sf::Vector2f& newSize);
-    double getSizeX() const;
-    double getSizeY() const;
+    sf::Vector2f getSize() const;
 
     void increaseXAxis();
     void increaseYAxis();
@@ -37,8 +36,6 @@ public:
     void decreaseXAxis();
     void decreaseYAxis();
 
-    sf::Vector2f point5;
-    sf::Vector2f point6;
 private:
     void setPoints();
     void setFacePoints();
@@ -50,6 +47,8 @@ private:
     sf::Vector2f point2;
     sf::Vector2f point3;
     sf::Vector2f point4;
+    sf::Vector2f point5;
+    sf::Vector2f point6;
     sf::Vector2f point7;
 
 };
