@@ -5,19 +5,18 @@
 
 
 #include <iostream>
-#include <cmath>
 #include <fstream>
 #include "Game.h"
 #include "Constants.h"
 
 Game::Game(const int width, const int height, const std::string& gameTitle)
-: window(sf::VideoMode(500, 500), gameTitle),
+: window(sf::VideoMode(width, height), gameTitle),
   movingCube(0, 0),
   floorCube(250, 500, 330, 330),
   view(sf::FloatRect(0, 0, 500.f, 500.f))
 {
     window.setFramerateLimit(60);
-    settings.antialiasingLevel = 8;
+    settings.antialiasingLevel = 0;
     floorCube.setFillColor(sf::Color(167, 194, 175));
 
 
@@ -163,7 +162,7 @@ void Game::gameOverAnimation() {
     if(isGameOver){
         if (zoomAmount < 60) {
             view.zoom(1 + float(score) / 1000);
-            view.move(0,float(score) / 2.5);
+            view.move(0,score / 2.5);
             zoomAmount++;
         }
     }
