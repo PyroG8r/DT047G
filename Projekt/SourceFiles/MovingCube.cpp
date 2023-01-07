@@ -10,10 +10,7 @@
 
 // problem with initializing dirUpDown
 MovingCube::MovingCube(float sizeX, float sizeY)
-: Cube(sizeX, sizeY), 
-dirUpDown(DOWN), 
-dirLeftRight(LEFT), 
-path(ALONG_X)
+: Cube(sizeX, sizeY)
 {
     setCubePosition(sf::Vector2f(SCREEN_WIDTH + 50,CUBE_HEIGHT));
 }
@@ -99,6 +96,16 @@ void MovingCube::resetCubeState(float deltaX, float deltaY) {
 
 bool MovingCube::getMovingPath() const {
     return path;
+}
+
+void  MovingCube::resetCubeForNewRound() {
+    setCubePosition(sf::Vector2f(SCREEN_WIDTH + 50,CUBE_HEIGHT));
+    setSize(sf::Vector2f(0,0));
+    dirUpDown = DOWN;
+    dirLeftRight = LEFT;
+    startHeight = 0;
+    startOffsetX = 0;
+    startOffsetY = 0;
 }
 
 

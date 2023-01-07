@@ -21,7 +21,7 @@ public:
     Game(int width, int height, const std::string& gameTitle);
     void run();
 private:
-    void initializeView();
+    void initializeElements();
     void handleInputs();
     void updateObjects();
     void drawObjects();
@@ -29,6 +29,9 @@ private:
     void gameOver();
     void getHighScore();
     void updateHighScore();
+    void placeCubeAnimations();
+    void gameOverAnimation();
+    void restartGame();
 
     //game objects
     sf::ContextSettings settings;
@@ -41,21 +44,27 @@ private:
     //entities
     CubeTower cubeTower;
     MovingCube movingCube;
-    //FixedCube floorCube;
+    FixedCube floorCube;
 
     //other
     sf::Vector2i mousePos;
     sf::Vector2f mouseWorldPos;
-    float overHang;
-    int score = 0;
-    int highScore;
+    int incrementCubeAnimationAmount = 0;
+    bool incrementCubeAnimation = false;
+    int zoomAmount = 0;
+    float overHang = 0;
+    int highScore = 0;
     bool paused = true;
+    bool isGameOver = false;
+
+    int score = 0;
 
     //sounds
     const std::string placeCubeSound_path = "Sounds/placeCube.wav";
     const std::string perfectPlaceCubeSound_path = "Sounds/perfect-place.wav";
     const std::string missPlaceCubeSound_path = "Sounds/miss-place.wav";
     const std::string gameOverSound_path = "Sounds/game-over.wav";
+
 
 };
 

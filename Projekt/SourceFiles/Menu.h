@@ -9,23 +9,26 @@
 
 #include <SFML/Graphics.hpp>
 
-#define MAX_NUMBER_OF_ITEMS 3
+#define MAX_NUMBER_OF_ITEMS_PAUSE_MENU 2
+#define MAX_NUMBER_OF_ITEMS_GAME_OVER_MENU 2
 
 class Menu {
 public:
     Menu();
 
     /**
-     * @brief Draws the menu to the window
+     * @brief Draws the pauseMenu to the window
      * @param window The window to draw to
     */
     void draw(sf::RenderWindow &window);
 
     /**
-     * @brief Shows or hides the menu
-     * @param show True or false depending on if the menu should be shown or not
+     * @brief Shows or hides the pauseMenu
+     * @param show True or false depending on if the pauseMenu should be shown or not
     */
-    void showMenu(bool);
+    void showPauseMenu(bool);
+
+    void showGameOverMenu(bool);
     
     /**
      * @brief Checks if the play button is pressed
@@ -40,6 +43,7 @@ public:
      * @return True or false depending on if the exit button is pressed
     */
     bool isExitButtonPressed(sf::Vector2i mousePos);
+    bool isRestartButtonPressed(sf::Vector2i mousePos);
 
     /**
      * @brief Updates the highscore
@@ -48,6 +52,8 @@ public:
     void updateHighScore(int);
 
 private:
+    void initializePauseMenu();
+    void initializeGameOverMenu();
     /**
      * @brief Checks if the mouse is inside the button
      * @param mousePos The position of the mouse
@@ -57,13 +63,15 @@ private:
     static bool isButtonPressed(sf::Vector2i mousePos, const sf::RectangleShape& button);
 
     sf::Font font;
-    sf::Text menu[MAX_NUMBER_OF_ITEMS];
-    sf::RectangleShape background;
+    sf::Text pauseMenu[MAX_NUMBER_OF_ITEMS_PAUSE_MENU];
+    sf::Text gameOverMenu[MAX_NUMBER_OF_ITEMS_GAME_OVER_MENU];
     sf::RectangleShape play_button;
     sf::RectangleShape exit_button;
+    sf::RectangleShape restart_button;
     sf::Color buttonColor = sf::Color(208,106,107);
     int highScore = 0;
-    bool show_menu = true;
+    bool isPauseMenuShown = true;
+    bool isGameOverMenuShown = false;
 
 
 };

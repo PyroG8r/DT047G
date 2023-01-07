@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include "Sound.h"
-
+/*
 Sound::Sound(std::string path)
 {
     if(!buffer.loadFromFile(path))
@@ -14,3 +14,4 @@ Sound::Sound(std::string path)
 
     setBuffer(buffer);
 }
+*/

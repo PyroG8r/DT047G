@@ -20,8 +20,10 @@ public:
     std::vector<FixedCube>::iterator top();
     std::vector<FixedCube>::iterator bottom();
 
-    FixedCube topCube();
+    FixedCube& topCube();
 
+
+    void reset();
 
 private:
     std::vector<FixedCube> cubeTower;

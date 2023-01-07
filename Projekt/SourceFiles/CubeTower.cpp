@@ -30,10 +30,15 @@ std::vector<FixedCube>::iterator CubeTower::bottom() {
     return cubeTower.begin();
 }
 
-FixedCube CubeTower::topCube() {
+FixedCube& CubeTower::topCube() {
     return cubeTower.back();
 }
 
 size_t CubeTower::getSize() {
     return cubeTower.size();
+}
+
+void CubeTower::reset() {
+    cubeTower.clear();
+    addCube(sf::Vector2f(0,0), sf::Vector2f(SCREEN_WIDTH/2,SCREEN_WIDTH/2));
 }
