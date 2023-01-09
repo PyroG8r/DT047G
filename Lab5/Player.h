@@ -7,15 +7,20 @@
 
 #include "iostream"
 #include <string>
+#include <utility>
 
 class Player {
 public:
-    Player();
-    Player(std::string basicString, double speed, double score);
+    Player() = default;
+    Player(std::string name, double speed, double score):
+    name(std::move(name)), speed(speed), score(score) { }
+
     std::string getName() const { return name; }
 
     //overloaded == operator for comparing name
-    bool operator==(const Player &player) const;
+    bool operator==(const Player &player) const{
+        return name == player.name;
+    }
 
     double getSpeed() const { return speed; }
     double getScore() const { return score; }

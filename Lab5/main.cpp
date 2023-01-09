@@ -2,6 +2,8 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <ctime>
+#include <array>
 #include "Player.h"
 
 
@@ -68,11 +70,11 @@ int main() {
     print(*std::find_if(playerVector.begin(), playerVector.end(), score60));
 
     // --- Task 3 --- //
-    std::cout << "Find objects placed sequentially\n";
+    std::cout << "Find first of objects placed sequentially\n";
     print(*std::adjacent_find(playerVector.begin(), playerVector.end()));
 
     // --- Task 4 --- //
-    std::cout << "Is the array equal to the vector?: "  ;
+    std::cout << "Is the array equal to the vector?: ";
     bool is_equal = std::equal(playerVector.begin(), playerVector.end(), playersArray);
     std::cout << ((is_equal) ? "yes\n" : "no\n");
 
