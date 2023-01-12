@@ -38,8 +38,6 @@ public:
      * @param position The position of the cube
      */
     explicit Cube(const sf::Vector2f &size, const sf::Vector2f &position);
-    
-
 
     /**
      * @brief Sets the position of the cube

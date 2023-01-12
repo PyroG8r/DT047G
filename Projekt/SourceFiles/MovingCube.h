@@ -26,7 +26,7 @@ public:
      * @details The cube is placed outside the screen at the top right corner
      * and moves towards the tower when the game starts. 
     */
-    MovingCube(const sf::Vector2f &size);
+    explicit MovingCube(const sf::Vector2f &size);
 
 
     /**
@@ -56,6 +56,7 @@ public:
     */
     void resetCubeForNewRound();
 
+
 private:
     void toggleDirUpDown();
     void toggleDirLeftRight();
@@ -70,6 +71,7 @@ private:
     float startHeight = 0;
     float startOffsetX = 0;
     float startOffsetY = 0;
+
 };
 
 

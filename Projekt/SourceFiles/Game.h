@@ -12,8 +12,13 @@
 #include "MovingCube.h"
 #include "CubeTower.h"
 #include "Menu.h"
+#include <random>
 
-
+/**
+ * @brief The main game class
+ * @details The main game class that handles all the game logic
+ * acts as a controller, or wrapper class.
+ */
 class Game {
 public:
     Game(int width, int height, const std::string& gameTitle, sf::ContextSettings settings);
@@ -32,7 +37,7 @@ private:
     void restartGame();
 
     //game objects
-    sf::View view;
+    sf::View view = sf::View(sf::FloatRect(0, 0, 500.f, 500.f));
     sf::RenderWindow window;
     sf::Font font;
     sf::Text scoreText;
@@ -42,12 +47,13 @@ private:
 
     //entities
     CubeTower<Cube> cubeTower;
-    MovingCube movingCube;
-    Cube floorCube;
+    MovingCube movingCube = MovingCube(sf::Vector2f(0,0));
+    Cube floorCube = Cube(sf::Vector2f(330, 330), sf::Vector2f(250, 500));
 
     //other
     sf::Vector2i mousePos;
     sf::Vector2f mouseWorldPos;
+    sf::Color placeColor;
     int incrementCubeAnimationAmount = 0;
     bool incrementCubeAnimation = false;
     int zoomAmount = 0;
@@ -55,8 +61,11 @@ private:
     int highScore = 0;
     bool paused = true;
     bool isGameOver = false;
-
     int score = 0;
+
+    std::random_device rd = std::random_device();
+    std::mt19937 gen = std::mt19937(rd());
+    std::uniform_int_distribution<> colordirstr {100, 200};
 };
 
 

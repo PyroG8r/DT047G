@@ -10,10 +10,7 @@
 #include "Constants.h"
 
 Game::Game(const int width, const int height, const std::string& gameTitle, sf::ContextSettings settings)
-: window(sf::VideoMode(width, height), gameTitle, sf::Style::Default, settings),
-  movingCube(sf::Vector2f(0,0)),
-  floorCube(sf::Vector2f(330, 330), sf::Vector2f(250, 500)),
-  view(sf::FloatRect(0, 0, 500.f, 500.f))
+: window(sf::VideoMode(width, height), gameTitle, sf::Style::Default, settings)
 {
     window.setFramerateLimit(60);
 }
@@ -224,6 +221,11 @@ bool Game::placeCube() {
     view.move(0,- CUBE_HEIGHT);
     cubeTower.addCube(newCubeSize, placedCubePosition);
     movingCube.setSize(newCubeSize);
+
+    //set color of the cubes
+    cubeTower.topCube().setFillColor(placeColor);
+    placeColor = sf::Color(colordirstr(gen), colordirstr(gen), colordirstr(gen));
+    movingCube.setFillColor(placeColor);
     return true;
 }
 

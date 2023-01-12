@@ -1,10 +1,11 @@
 #include <SFML/Window.hpp>
 #include <iostream>
+#include <ctime>
 #include "Game.h"
 
 
 int main() {
-    srand(time(0));
+    std::srand(std::time(nullptr));
     const int width = 500;
     const int height = 500;
     const std::string gameTitle = "Stacker";

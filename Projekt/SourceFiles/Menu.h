@@ -45,10 +45,18 @@ public:
     */
     bool isPlayButtonPressed(sf::Vector2i mousePos);
 
-
+    /**
+     * @brief Checks if the exit button is pressed
+     * @param mousePos The position of the mouse
+     * @return True or false depending on if the exit button is pressed
+    */
     bool isExitButtonPressed(sf::Vector2i mousePos);
 
-    
+    /**
+     * @brief Checks if the restart button is pressed
+     * @param mousePos The position of the mouse
+     * @return True or false depending on if the restart button is pressed
+    */
     bool isRestartButtonPressed(sf::Vector2i mousePos);
 
     /**
