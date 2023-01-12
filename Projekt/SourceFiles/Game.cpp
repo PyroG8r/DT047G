@@ -11,8 +11,8 @@
 
 Game::Game(const int width, const int height, const std::string& gameTitle, sf::ContextSettings settings)
 : window(sf::VideoMode(width, height), gameTitle, sf::Style::Default, settings),
-  movingCube(0, 0),
-  floorCube(250, 500, 330, 330),
+  movingCube(sf::Vector2f(0,0)),
+  floorCube(sf::Vector2f(330, 330), sf::Vector2f(250, 500)),
   view(sf::FloatRect(0, 0, 500.f, 500.f))
 {
     window.setFramerateLimit(60);
@@ -34,8 +34,11 @@ void Game::initializeElements() {
 
     floorCube.setFillColor(sf::Color(55, 161, 143));
 
+    if (!font.loadFromFile("Fonts/Roboto-Bold.ttf")){
+        throw std::ios_base::failure("Cannot find font file");
+    }
+
     //set score text
-    font.loadFromFile("Fonts/Roboto-Bold.ttf");
     scoreText.setFont(font);
     scoreText.setString(std::to_string(score));
     scoreText.setCharacterSize(50);
@@ -111,8 +114,8 @@ void Game::updateObjects() {
 
 
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
-        movingCube.setCubePosition(mouseWorldPos);
+    /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
+        movingCube.setPosition(mouseWorldPos);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
@@ -126,7 +129,7 @@ void Game::updateObjects() {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
         movingCube.decreaseXAxis();
-    }
+    }*/
 }
 
 void Game::placeCubeAnimations() {
@@ -164,24 +167,24 @@ void Game::drawObjects() {
     window.clear(sf::Color(223, 207, 165));
     window.setView(view);
 
-    floorCube.draw(window);
+    window.draw(floorCube);
     // print all cubes in tower using std::for_each
     std::for_each(cubeTower.bottom(), cubeTower.top(), [this](Cube &cube){
-        cube.draw(window);
+        window.draw(cube);
     });
-    if(!isGameOver) { movingCube.draw(window); }
+    if(!isGameOver) { window.draw(movingCube); }
 
     //reset the view to default view to draw hud elements
     window.setView(window.getDefaultView());
 
     window.draw(scoreText);
-    mainMenu.draw(window);
+    window.draw(mainMenu); // using overridden virtual draw function
 
     window.display();
 }
 
 bool Game::placeCube() {
-    FixedCube topCube = cubeTower.topCube();
+    Cube topCube = cubeTower.topCube();
     sf::Vector2f placedCubePosition(movingCube.getPosition());
     sf::Vector2f newCubeSize(movingCube.getSize());
 
@@ -226,7 +229,8 @@ bool Game::placeCube() {
 
 void Game::gameOver() {
     isGameOver = true;
-    updateHighScore();
+    if (score > highScore){updateHighScore();}
+
     paused = true;
     mainMenu.showGameOverMenu(true);
 
@@ -240,19 +244,19 @@ void Game::getHighScore() {
         highScoreFile >> highScore;
         highScoreFile.close();
     }
-    else{
-        std::cout << "Failed to open highScore.txt";
-    }
 }
 
 void Game::updateHighScore() {
-    if (score > highScore){
-        highScore = score;
-        std::ofstream highScoreFile;
-        highScoreFile.open("highScore.txt");
+    highScore = score;
+    std::ofstream highScoreFile;
+    highScoreFile.open("highScore.txt");
+    if (highScoreFile.is_open()){
         highScoreFile << highScore;
         highScoreFile.close();
         mainMenu.updateHighScore(highScore);
+    }
+    else {
+        throw std::ios_base::failure("Cannot create highscore file");
     }
 }
 
@@ -261,10 +265,10 @@ void Game::restartGame() {
     cubeTower.reset();
     view.reset(sf::FloatRect(0, 0, 500.f, 500.f));
     movingCube.resetCubeForNewRound();
-    scoreText.setString(std::to_string(score));
 
     //reset game properties
     score = 0;
+    scoreText.setString(std::to_string(score));
     isGameOver = false;
     zoomAmount = 0;
     paused = false;

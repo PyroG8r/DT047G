@@ -14,24 +14,22 @@ Menu::Menu() {
 
 }
 
-void Menu::draw(sf::RenderWindow &window) {
+void Menu::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     if(isPauseMenuShown) {
-        window.draw(play_button);
-        window.draw(exit_button);
+        target.draw(play_button);
+        target.draw(exit_button);
         for (const auto & text : pauseMenu) {
-            window.draw(text);
+            target.draw(text);
         }
     }
     if(isGameOverMenuShown) {
-        window.draw(restart_button);
+        target.draw(restart_button);
         for (const auto & text : gameOverMenu) {
-            window.draw(text);
+            target.draw(text);
         }
     }
-
-    
-
 }
+
 
 void Menu::showPauseMenu(bool input) {
     isPauseMenuShown = input;
@@ -72,11 +70,13 @@ bool Menu::isButtonPressed(sf::Vector2i mousePos, const sf::RectangleShape& butt
 
 void Menu::updateHighScore(int newHighScore) {
     highScore = newHighScore;
-    pauseMenu[2].setString("HIGHSCORE: " + std::to_string(highScore));
+    gameOverMenu[1].setString("HIGHSCORE: " + std::to_string(highScore));
 }
 
 void Menu::initializePauseMenu() {
-    font.loadFromFile("Fonts/Roboto-Bold.ttf");
+    if (!font.loadFromFile("Fonts/Roboto-Bold.ttf")){
+        throw std::ios_base::failure("Cannot find font file");
+    }
     pauseMenu[0].setFont(font);
     pauseMenu[0].setFillColor(sf::Color::White);
     pauseMenu[0].setString("Play");
@@ -126,6 +126,8 @@ void Menu::initializeGameOverMenu() {
     restart_button.setPosition(sf::Vector2f(50, 150));
 
 }
+
+
 
 
 
