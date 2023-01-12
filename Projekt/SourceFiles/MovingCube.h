@@ -28,6 +28,7 @@ public:
     */
     MovingCube(const sf::Vector2f &size);
 
+
     /**
      * @brief Places the cube on the top cube
      * @param onTopOf The cube to place the cube on
