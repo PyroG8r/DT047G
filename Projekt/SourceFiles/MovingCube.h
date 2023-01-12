@@ -6,7 +6,6 @@
 #define PROJEKT_MOVINGCUBE_H
 
 #include "Cube.h"
-#include "FixedCube.h"
 
 
 /**
@@ -27,14 +26,14 @@ public:
      * @details The cube is placed outside the screen at the top right corner
      * and moves towards the tower when the game starts. 
     */
-    MovingCube(float sizeX, float sizeY);
+    MovingCube(const sf::Vector2f &size);
 
     /**
      * @brief Places the cube on the top cube
      * @param onTopOf The cube to place the cube on
      * @return The amount of overhang the cube has
     */
-    float placeCube(const FixedCube& onTopOf);
+    float placeCube(const Cube& onTopOf);
 
     /**
      * @brief Returns the direction the cube is moving in

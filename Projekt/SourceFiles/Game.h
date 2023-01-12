@@ -10,7 +10,6 @@
 #include <SFML/Audio.hpp>
 #include "Cube.h"
 #include "MovingCube.h"
-#include "FixedCube.h"
 #include "CubeTower.h"
 #include "Menu.h"
 
@@ -39,10 +38,12 @@ private:
     sf::Text scoreText;
     Menu mainMenu;
 
+
+
     //entities
-    CubeTower cubeTower;
+    CubeTower<Cube> cubeTower;
     MovingCube movingCube;
-    FixedCube floorCube;
+    Cube floorCube;
 
     //other
     sf::Vector2i mousePos;
@@ -56,14 +57,6 @@ private:
     bool isGameOver = false;
 
     int score = 0;
-
-    //sounds
-    const std::string placeCubeSound_path = "Sounds/placeCube.wav";
-    const std::string perfectPlaceCubeSound_path = "Sounds/perfect-place.wav";
-    const std::string missPlaceCubeSound_path = "Sounds/miss-place.wav";
-    const std::string gameOverSound_path = "Sounds/game-over.wav";
-
-
 };
 
 

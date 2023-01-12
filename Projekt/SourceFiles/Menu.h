@@ -12,15 +12,19 @@
 #define MAX_NUMBER_OF_ITEMS_PAUSE_MENU 2
 #define MAX_NUMBER_OF_ITEMS_GAME_OVER_MENU 2
 
-class Menu {
+class Menu : public sf::Drawable {
 public:
     Menu();
 
     /**
-     * @brief Draws the pauseMenu to the window
-     * @param window The window to draw to
+     * @brief Draws the menu
+     * @param target The target to draw to
+     * @param states The states to draw with
+     * @details Draws the pauseMenu or gameOverMenu based on if the game is pased or over
+     * Overrides the draw function from sf::Drawable
+     * @see sf::RenderTarget
     */
-    void draw(sf::RenderWindow &window);
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     /**
      * @brief Shows or hides the pauseMenu
@@ -28,6 +32,10 @@ public:
     */
     void showPauseMenu(bool);
 
+    /**
+     * @brief Shows or hides the gameOverMenu
+     * @param show True or false depending on if the gameOverMenu should be shown or not
+    */
     void showGameOverMenu(bool);
     
     /**
@@ -37,12 +45,10 @@ public:
     */
     bool isPlayButtonPressed(sf::Vector2i mousePos);
 
-    /**
-     * @brief Checks if the exit button is pressed
-     * @param mousePos The position of the mouse
-     * @return True or false depending on if the exit button is pressed
-    */
+
     bool isExitButtonPressed(sf::Vector2i mousePos);
+
+    
     bool isRestartButtonPressed(sf::Vector2i mousePos);
 
     /**
