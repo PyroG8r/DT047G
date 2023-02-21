@@ -29,6 +29,10 @@ void Game::run() {
 void Game::initializeElements() {
     getHighScore();
 
+    cubeTower.topCube().setFillColor(placeColor);
+    placeColor = setRandomCubeColor(movingCube);
+
+
     floorCube.setFillColor(sf::Color(55, 161, 143));
 
     if (!font.loadFromFile("Fonts/Roboto-Bold.ttf")){
@@ -223,9 +227,18 @@ bool Game::placeCube() {
     movingCube.setSize(newCubeSize);
 
     //set color of the cubes
-    cubeTower.topCube().setFillColor(placeColor);
+
+
+
+    /*cubeTower.topCube().setFillColor(placeColor);
     placeColor = sf::Color(colordirstr(gen), colordirstr(gen), colordirstr(gen));
-    movingCube.setFillColor(placeColor);
+    movingCube.setFillColor(placeColor);*/
+
+
+    cubeTower.topCube().setFillColor(placeColor);
+    placeColor = setRandomCubeColor(movingCube);
+
+
     return true;
 }
 

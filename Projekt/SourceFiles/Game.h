@@ -36,6 +36,13 @@ private:
     void gameOverAnimation();
     void restartGame();
 
+
+    sf::Color setRandomCubeColor(Cube& cube){
+        sf::Color color = sf::Color(colordirstr(gen), colordirstr(gen), colordirstr(gen));
+        cube.setFillColor(color);
+        return color;
+    }
+
     //game objects
     sf::View view = sf::View(sf::FloatRect(0, 0, 500.f, 500.f));
     sf::RenderWindow window;
@@ -53,7 +60,7 @@ private:
     //other
     sf::Vector2i mousePos;
     sf::Vector2f mouseWorldPos;
-    sf::Color placeColor;
+    sf::Color placeColor = sf::Color(colordirstr(gen), colordirstr(gen), colordirstr(gen));
     int incrementCubeAnimationAmount = 0;
     bool incrementCubeAnimation = false;
     int zoomAmount = 0;
